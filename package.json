@@ -1,0 +1,34 @@
+{
+  "name": "react-breadcrumbs-dynamic",
+  "version": "0.0.1",
+  "description": "React dynamic breadcrumbs",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oklas/react-breadcrumbs-dynamic.git"
+  },
+  "keywords": [],
+  "author": "Serguei Okladnikov <oklaspec@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oklas/react-breadcrumbs-dynamic/issues"
+  },
+  "homepage": "https://github.com/oklas/react-breadcrumbs-dynamic",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.0.2",
+    "codecov.io": "^0.1.6",
+    "coveralls": "^2.12.0",
+    "expect": "^1.20.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^2.5.3"
+  },
+  "scripts": {
+    "build": "babel --presets es2015,stage-0 -d dist/ src/",
+    "prepublish": "npm run build",
+    "test": "mocha",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha"
+  }
+}
