@@ -49,7 +49,6 @@ export class BreadcrumbsProvider extends React.Component {
 class BreadcrumbsItem_ extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props)
     const {breadcrumbs: {install, remove}} = props
     this.install = install
     this.remove = remove
@@ -89,14 +88,29 @@ function Breadcrumbs_(props) {
   const pathnames = Object.keys(data).sort(function(a, b) {
     return a.length - b.length;
   });
+  const count = pathnames.length
+  const Item = props.item || 'a'
+  const FinalItem = props.finalItem || Item
+  const finalProps = props.finalProps || {}
+  const separator = props.separator || ' / '
   return (
     <span>
-      {pathnames.map((pathname,i) =>
-        <span>
-          {i ? ' / ' : null}
-          <a href={pathname}>{data[pathname].title}</a>
-        </span>
-      )}
+      {pathnames.map((pathname,i) => {
+        return i+1 < count ? (
+          <span>
+            <Item {...data[pathname]}>
+              {data[pathname].children}
+            </Item>
+            {separator}
+          </span>
+        ) : (
+          <span>
+            <FinalItem {...data[pathname]} {...finalProps}>
+              {data[pathname].children}
+            </FinalItem>
+          </span>
+        )
+      })}
     </span>
   )
 }
