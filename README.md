@@ -32,7 +32,7 @@ tree like you do it for `react-redux` or `react-router`.
 The `BreadcrumbsProvider` component must be parent in react tree of all
 components of this library with any deeps of nesting.
 
-``` jsx
+``` javascript
 import {BreadcrumbsProvider} from 'react-breadcrumbs-dynamic'
 
 const theApp = (
@@ -52,7 +52,7 @@ value. In this example the `react-router` v4 routing specification is used.
 Please note that `item` and `finalItem` require react component (class) instead
 of react element. However `separator` require react element.
 
-``` jsx
+``` javascript
 import {Breadcrumbs} from 'react-breadcrumbs-dynamic'
 
 const Page = (props) => (
@@ -87,7 +87,7 @@ contain bearing key with URL for breadcrumbs working. So if you use simple
 `<a>` tag for breadcrumb url you need to specify both `to` and `href`.
 
 
-``` jsx
+``` javascript
 
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic'
 
@@ -123,7 +123,7 @@ const Contacts = (props) => (
 
 The result of above code will represent breadcrumbs like this:
 
-``` jsx
+``` javascript
   <NavLink to='/'>Main Page</NavLink>
   <b> / </b>
   <NavLink to='/user'>Home</NavLink>
@@ -150,6 +150,11 @@ in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
 
 * `to` - mandatory required bearing key with URL for breadcrumbs working
 * `...` - any more number of properties
+
+
+## `BreadcrumbsProvider` component props
+
+The `BreadcrumbsProvider` have not props.
 
 
 ## LICENSE
