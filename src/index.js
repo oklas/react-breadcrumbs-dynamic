@@ -21,21 +21,26 @@ export class BreadcrumbsProvider extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      data: {}
     }
   }
 
   install = (to, props) => {
-    this.setState({[to]: {...props}})
+    const {data} = this.state
+    data[to] = {...props}
+    this.setState({data})
   }
 
   remove = to => {
-    this.setState({[to]: undefined})
+    const {data} = this.state
+    delete data[to]
+    this.setState({data})
   }
 
   render() {
     return (
       <Broadcast channel="breadcrumbs" value={{
-        data: this.state,
+        data: this.state.data,
         install: this.install,
         remove: this.remove,
       }}>
