@@ -102,14 +102,14 @@ function Breadcrumbs_(props) {
     <span>
       {pathnames.map((pathname,i) => {
         return i+1 < count ? (
-          <span>
+          <span key={i}>
             <Item {...data[pathname]}>
               {data[pathname].children}
             </Item>
             {separator}
           </span>
         ) : (
-          <span>
+          <span key={i}>
             <FinalItem {...data[pathname]} {...finalProps}>
               {data[pathname].children}
             </FinalItem>
