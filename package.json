@@ -8,7 +8,9 @@
     "url": "https://github.com/oklas/react-breadcrumbs-dynamic.git"
   },
   "keywords": [
-    "breadcrumbs", "theme", "react"
+    "breadcrumbs",
+    "theme",
+    "react"
   ],
   "author": "Serguei Okladnikov <oklaspec@gmail.com>",
   "license": "MIT",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-loader": "^7.1.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -29,13 +32,18 @@
     "coveralls": "^2.12.0",
     "expect": "^1.20.2",
     "istanbul": "^0.4.5",
-    "mocha": "^2.4.2"
+    "mocha": "^2.4.2",
+    "react-bootstrap": "^0.31.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2",
+    "webpack": "^3.3.0"
   },
   "dependencies": {
     "react-broadcast": "^0.1.2"
   },
   "scripts": {
     "build": "babel --presets es2015,stage-0 -d dist/ src/",
+    "build:example": "cd example && webpack",
     "prepublish": "npm run build",
     "test": "mocha",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha"
