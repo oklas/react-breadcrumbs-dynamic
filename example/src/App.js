@@ -3,6 +3,7 @@ import { Grid } from 'react-bootstrap'
 
 import { Breadcrumbs } from '../..';
 
+import Navbar from './Navbar'
 
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
     return (
       <div>
 
+        <Navbar/>
 
         <Breadcrumbs
         />
