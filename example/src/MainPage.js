@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 const MainPage = ({children}) => (
   <div>
-    MainPage
+    <h1>Main Page</h1>
   </div>
 )
 

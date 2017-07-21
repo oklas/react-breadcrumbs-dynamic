@@ -1,5 +1,29 @@
 import React, { Component } from 'react'
-import { Glyphicon, Navbar, Nav, NavDropdown, NavItem, MenuItem } from 'react-bootstrap'
+import {
+  Glyphicon,
+  Navbar,
+  Nav,
+  NavDropdown,
+  NavItem as NItem,
+  MenuItem as MItem } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+
+import {base_path} from './constants'
+
+
+const NavItem = ({href, ...props}) => (
+  <LinkContainer to={href||base_path}>
+    <NItem {...props}></NItem>
+  </LinkContainer>
+)
+
+
+const MenuItem = ({href, ...props}) => (
+  <LinkContainer to={href||base_path}>
+    <MItem {...props}></MItem>
+  </LinkContainer>
+)
+
 
 const TheNavbar = ({children}) => (
   <Navbar inverse collapseOnSelect>
@@ -14,16 +38,26 @@ const TheNavbar = ({children}) => (
     <Navbar.Collapse>
       <Nav>
 
-        <NavItem eventKey={1} href="/"><Glyphicon glyph="home" /> Home</NavItem>
-        <NavItem eventKey={2} href="/profile"><Glyphicon glyph="user" /> Profile</NavItem>
+        <NavItem eventKey={1} href={base_path}>
+          <Glyphicon glyph="home" /> Home
+        </NavItem>
+        <NavItem eventKey={2} href={base_path+'/profile'}>
+          <Glyphicon glyph="user" /> Profile
+        </NavItem>
         <NavDropdown eventKey={3} id="basic-nav-dropdown"
           title={
             <span><Glyphicon glyph="cog" /> Tools</span>
           }
         >
-          <MenuItem eventKey={3.2} href="/tools/events"><Glyphicon glyph="calendar" /> Events</MenuItem>
-          <MenuItem eventKey={3.1} href="/tools/statistics"><Glyphicon glyph="signal" /> Statistics</MenuItem>
-          <MenuItem eventKey={3.3} href="/tools/settings"><Glyphicon glyph="wrench" /> Settings</MenuItem>
+          <MenuItem eventKey={3.2} href={base_path+'/tools/events'}>
+            <Glyphicon glyph="calendar" /> Events
+          </MenuItem>
+          <MenuItem eventKey={3.1} href={base_path+'/tools/statistics'}>
+            <Glyphicon glyph="signal" /> Statistics
+          </MenuItem>
+          <MenuItem eventKey={3.3} href={base_path+'/tools/settings'}>
+            <Glyphicon glyph="wrench" /> Settings
+          </MenuItem>
         </NavDropdown>
 
       </Nav>
