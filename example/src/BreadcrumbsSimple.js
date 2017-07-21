@@ -6,8 +6,8 @@ import {base_path} from './constants'
 
 import { Breadcrumbs } from '../..';
 
-const Item = ({href, ...props}) => (
-  <LinkContainer to={href}>
+const Item = ({to, ...props}) => (
+  <LinkContainer to={to}>
     <Breadcrumb.Item {...props}>
     </Breadcrumb.Item>
   </LinkContainer>
@@ -17,7 +17,8 @@ const BreadcrumbsSimple = () => (
   <Breadcrumbs
     container={Breadcrumb}
     item={Item}
-    finalProps={{active:true}}
+    finalProps={{active: true}}
+    duplicateProps={{to: 'href'}}
   />
 )
 

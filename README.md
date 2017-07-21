@@ -16,8 +16,8 @@ breadcrumbs items and its props. However props and components need to be
 specified separately. Props need to specify in intermediator component
 `BreadcrumbsItem` anywhere in your hierarchy of components and routes.
 Breadcrumbs will be built and (currently) sorted by the length of the
-URL. So you can have several breadcrumbs with different components and
-design in your application.
+URL. An application may contain several breadcrumbs with different
+components and design.
 
 # Installation
 
@@ -84,7 +84,8 @@ Each routed component in your react tree generally associated with route
 and with correspondent breadcrumbs. Each component may add its breadcrumbs
 item. The `BreadcrumbsItem` component mandatory require the `to` prop which
 contain bearing key with URL for breadcrumbs working. So if you use simple
-`<a>` tag for breadcrumb url you need to specify both `to` and `href`.
+`<a>` tag for breadcrumb url - you need to use the `duplicateProps` and/or
+`renameProps`, or need to specify both `to` and `href`.
 
 
 ``` javascript
@@ -142,6 +143,8 @@ The result of above code will represent breadcrumbs like this:
 * `finalProps` - final item props which override specified in `BreadcrumbsItem` (default: {})
 * `container` - wrapper component (default is `span`)
 * `containerProps` - props for `container` components if defined (default: {})
+* `renameProps` - rename props passed from item intermedator to item
+* `duplicateProps` - duplicate same as `renameProps` but without remove original
 
 
 ## `BreadcrumbsItem` component props

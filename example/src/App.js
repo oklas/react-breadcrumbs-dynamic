@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <BreadcrumbsItem to={base_path} href={base_path}>
+        <BreadcrumbsItem to={base_path}>
           Home Page
         </BreadcrumbsItem>
 

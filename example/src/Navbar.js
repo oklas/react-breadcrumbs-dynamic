@@ -11,15 +11,15 @@ import { LinkContainer } from 'react-router-bootstrap'
 import {base_path} from './constants'
 
 
-const NavItem = ({href, ...props}) => (
-  <LinkContainer to={href||base_path}>
+const NavItem = ({to, ...props}) => (
+  <LinkContainer to={to||base_path}>
     <NItem {...props}></NItem>
   </LinkContainer>
 )
 
 
-const MenuItem = ({href, ...props}) => (
-  <LinkContainer to={href||base_path}>
+const MenuItem = ({to, ...props}) => (
+  <LinkContainer to={to||base_path}>
     <MItem {...props}></MItem>
   </LinkContainer>
 )
@@ -38,10 +38,10 @@ const TheNavbar = ({children}) => (
     <Navbar.Collapse>
       <Nav>
 
-        <NavItem eventKey={1} href={base_path}>
+        <NavItem eventKey={1} to={base_path}>
           <Glyphicon glyph="home" /> Home
         </NavItem>
-        <NavItem eventKey={2} href={base_path+'/profile'}>
+        <NavItem eventKey={2} to={base_path+'/profile'}>
           <Glyphicon glyph="user" /> Profile
         </NavItem>
         <NavDropdown eventKey={3} id="basic-nav-dropdown"
@@ -49,13 +49,13 @@ const TheNavbar = ({children}) => (
             <span><Glyphicon glyph="cog" /> Tools</span>
           }
         >
-          <MenuItem eventKey={3.2} href={base_path+'/tools/events'}>
+          <MenuItem eventKey={3.2} to={base_path+'/tools/events'}>
             <Glyphicon glyph="calendar" /> Events
           </MenuItem>
-          <MenuItem eventKey={3.1} href={base_path+'/tools/statistics'}>
+          <MenuItem eventKey={3.1} to={base_path+'/tools/statistics'}>
             <Glyphicon glyph="signal" /> Statistics
           </MenuItem>
-          <MenuItem eventKey={3.3} href={base_path+'/tools/settings'}>
+          <MenuItem eventKey={3.3} to={base_path+'/tools/settings'}>
             <Glyphicon glyph="wrench" /> Settings
           </MenuItem>
         </NavDropdown>

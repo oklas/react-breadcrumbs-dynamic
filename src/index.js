@@ -87,6 +87,17 @@ class BreadcrumbsItem_ extends React.Component {
 
 export const BreadcrumbsItem = withBreadcrumbs(BreadcrumbsItem_)
 
+function propsRenAndDup(props, ren, dup) {
+  const p = Object.assign({}, props)
+  Object.keys(dup).forEach(k => {
+    p[dup[k]] = p[k]
+  })
+  Object.keys(ren).forEach(k => {
+    p[dup[k]] = p[k]; delete p[k]
+  })
+  return p
+}
+
 
 function Breadcrumbs_(props) {
   const {data} = props.breadcrumbs
@@ -101,6 +112,8 @@ function Breadcrumbs_(props) {
   const finalProps = props.finalProps || {}
   const separator = props.separator
   const count = pathnames.length
+  const ren = props.renameProps || {}
+  const dup = props.duplicateProps || {}
 
   return (
     <Container {...containerParams}>
@@ -110,22 +123,19 @@ function Breadcrumbs_(props) {
 
           separator ? (
             <span key={i}>
-              <Item {...data[pathname]}>
-                {data[pathname].children}
-              </Item>
+              <Item {...propsRenAndDup(data[pathname], ren, dup)} />
               {separator}
             </span>
           ) : (
-            <Item key={i} {...data[pathname]}>
-              {data[pathname].children}
-            </Item>
+            <Item key={i} {...propsRenAndDup(data[pathname], ren, dup)} />
           )
 
         ) : (
 
-          <FinalItem key={i} {...data[pathname]} {...finalProps}>
-            {data[pathname].children}
-          </FinalItem>
+          <FinalItem key={i}
+            {...propsRenAndDup(data[pathname], ren, dup)}
+            {...finalProps}
+          />
 
         )
       })}
