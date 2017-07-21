@@ -136,11 +136,13 @@ The result of above code will represent breadcrumbs like this:
 
 ## `Breadcrumbs` component props
 
-* `separator` - separator between breadcrumbs items (default: ' / ')
+* `separator` - separator between breadcrumbs items (default: undefined)
 * `item` - component of breadcrumbs items (default: 'a')
 * `finalItem` - component of final breadcrumbs item (default: value of `item` prop)
-* `finalProps` - final item props which override specified in `BreadcrumbsItem`
-(default: {})
+* `finalProps` - final item props which override specified in `BreadcrumbsItem` (default: {})
+* `container` - wrapper component (default is `span`)
+* `containerProps` - props for `container` components if defined (default: {})
+
 
 ## `BreadcrumbsItem` component props
 

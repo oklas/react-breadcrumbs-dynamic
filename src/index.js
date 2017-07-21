@@ -93,30 +93,44 @@ function Breadcrumbs_(props) {
   const pathnames = Object.keys(data).sort(function(a, b) {
     return a.length - b.length;
   });
-  const count = pathnames.length
+
+  const Container = props.container || 'span'
+  const containerParams = props.containerParams
   const Item = props.item || 'a'
   const FinalItem = props.finalItem || Item
   const finalProps = props.finalProps || {}
-  const separator = props.separator || ' / '
+  const separator = props.separator
+  const count = pathnames.length
+
   return (
-    <span>
+    <Container {...containerParams}>
+
       {pathnames.map((pathname,i) => {
         return i+1 < count ? (
-          <span key={i}>
-            <Item {...data[pathname]}>
+
+          separator ? (
+            <span key={i}>
+              <Item {...data[pathname]}>
+                {data[pathname].children}
+              </Item>
+              {separator}
+            </span>
+          ) : (
+            <Item key={i} {...data[pathname]}>
               {data[pathname].children}
             </Item>
-            {separator}
-          </span>
+          )
+
         ) : (
-          <span key={i}>
-            <FinalItem {...data[pathname]} {...finalProps}>
-              {data[pathname].children}
-            </FinalItem>
-          </span>
+
+          <FinalItem key={i} {...data[pathname]} {...finalProps}>
+            {data[pathname].children}
+          </FinalItem>
+
         )
       })}
-    </span>
+
+    </Container>
   )
 }
 
