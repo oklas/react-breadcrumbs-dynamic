@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import { Grid } from 'react-bootstrap'
 
-import { Breadcrumbs } from '../..';
+import BreadcrumbsSimple from './BreadcrumbsSimple';
+
+import { BreadcrumbsItem } from '../..';
 
 import Navbar from './Navbar'
 import MainPage from './MainPage'
@@ -16,11 +18,13 @@ class App extends Component {
   render() {
     return (
       <div>
+        <BreadcrumbsItem to={base_path} href={base_path}>
+          Home Page
+        </BreadcrumbsItem>
 
         <Navbar/>
 
-        <Breadcrumbs
-        />
+        <BreadcrumbsSimple/>
 
         <Grid>
           <Route exact path='/' component={MainPage} />
@@ -28,6 +32,8 @@ class App extends Component {
           <Route exact path={`${base_path}/profile`} component={ProfilePage} />
           <Route path={`${base_path}/tools`} component={ToolsPage} />
         </Grid>
+
+        <BreadcrumbsSimple/>
 
       </div>
     );
