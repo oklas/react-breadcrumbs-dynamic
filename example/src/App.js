@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import { Grid } from 'react-bootstrap'
 
-import BreadcrumbsSimple from './BreadcrumbsSimple';
+import { BreadcrumbsWithIcon, BreadcrumbsSimple } from './AppBreadcrumbs';
 
 import { BreadcrumbsItem } from '../..';
 
@@ -18,13 +18,13 @@ class App extends Component {
   render() {
     return (
       <div>
-        <BreadcrumbsItem to={base_path}>
+        <BreadcrumbsItem glyph='home' to={base_path}>
           Home Page
         </BreadcrumbsItem>
 
         <Navbar/>
 
-        <BreadcrumbsSimple/>
+        <BreadcrumbsWithIcon/>
 
         <Grid>
           <Route exact path='/' component={MainPage} />

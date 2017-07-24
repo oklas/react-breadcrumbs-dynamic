@@ -7,7 +7,7 @@ import {base_path} from './constants'
 
 const Profile = ({children}) => (
   <div>
-    <BreadcrumbsItem to={base_path+'/profile'}>
+    <BreadcrumbsItem glyph='user' to={base_path+'/profile'}>
       Profile
     </BreadcrumbsItem>
 

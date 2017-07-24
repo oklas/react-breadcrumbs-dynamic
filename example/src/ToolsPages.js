@@ -8,7 +8,7 @@ const tools_path = base_path+'/tools'
 
 export const Events = ({children}) => (
   <div>
-    <BreadcrumbsItem to={tools_path+'/tools'}>
+    <BreadcrumbsItem glyph='calendar' to={tools_path+'/tools'}>
       Events
     </BreadcrumbsItem>
     <h2>Events tool Page</h2>
@@ -17,7 +17,7 @@ export const Events = ({children}) => (
 
 export const Statistics = ({children}) => (
   <div>
-    <BreadcrumbsItem to={tools_path+'/tools'}>
+    <BreadcrumbsItem glyph='signal' to={tools_path+'/tools'}>
       Statistics
     </BreadcrumbsItem>
     <h2>Statistics tool Page</h2>
@@ -26,7 +26,7 @@ export const Statistics = ({children}) => (
 
 export const Settings = ({children}) => (
   <div>
-    <BreadcrumbsItem to={tools_path+'/tools'}>
+    <BreadcrumbsItem glyph='wrench' to={tools_path+'/tools'}>
       Settings
     </BreadcrumbsItem>
     <h2>Settings tool Page</h2>
