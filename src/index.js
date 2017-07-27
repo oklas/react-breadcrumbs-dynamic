@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Broadcast, Subscriber } from 'react-broadcast'
 
 
-function withBreadcrumbs(BreadcrumbsComponent) {
+export function withBreadcrumbs(BreadcrumbsComponent) {
   const Breadcrumbs = (props, context) => {
     return (
       <Subscriber channel="breadcrumbs">
@@ -21,26 +21,43 @@ export class BreadcrumbsProvider extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: {}
+      dataNum: 0
+    }
+    this.data = {}
+    this.timer = undefined
+    this.dataNum = 0
+  }
+
+  doUpdate() {
+    ++this.dataNum
+    if( !this.timer ) {
+      this.timer = setTimeout(() => {
+        if(this.dataNum > 1000000)
+          this.dataNum = 0
+        this.setState({dataNum: this.dataNum})
+        this.timer = undefined
+      }, 0);
     }
   }
 
   install = (to, props) => {
-    const {data} = this.state
+    const data = Object.assign({}, this.data)
     data[to] = {...props}
-    this.setState({data})
+    this.data = data
+    this.doUpdate()
   }
 
   remove = to => {
-    const {data} = this.state
+    const data = Object.assign({}, this.data)
     delete data[to]
-    this.setState({data})
+    this.data = data
+    this.doUpdate()
   }
 
   render() {
     return (
       <Broadcast channel="breadcrumbs" value={{
-        data: this.state.data,
+        data: this.data,
         install: this.install,
         remove: this.remove,
       }}>
@@ -99,7 +116,7 @@ function propsRenAndDup(props, ren, dup) {
 }
 
 
-function Breadcrumbs_(props) {
+const Breadcrumbs_ = (props) => {
   const {data} = props.breadcrumbs
   const pathnames = Object.keys(data).sort(function(a, b) {
     return a.length - b.length;
