@@ -28,30 +28,51 @@ export class BreadcrumbsProvider extends React.Component {
     this.dataNum = 0
   }
 
-  doUpdate() {
+  doUpdate(asyncUpdate) {
     ++this.dataNum
+
+    if( !asyncUpdate ) {
+      return  this.setState({dataNum: this.dataNum})
+    }
+
     if( !this.timer ) {
       this.timer = setTimeout(() => {
-        if(this.dataNum > 1000000)
+        if(this.dataNum > 1000000) {
           this.dataNum = 0
+        }
         this.setState({dataNum: this.dataNum})
         this.timer = undefined
       }, 0);
     }
   }
 
-  install = (to, props) => {
+  install = (to, props, asyncUpdate = false) => {
+    if(!(props instanceof Object)) {
+      throw new Error("type error: breadcrumbs.install(to:string, props:Object)");
+    }
+
+    const origProps = this.data[to] || {}
+    const keys = Object.keys(origProps).concat(Object.keys(props))
+    const differences = keys.filter(
+      k => (origProps[k] !== props[k])
+    ).length
+
+    if( !differences )
+      return
+
     const data = Object.assign({}, this.data)
     data[to] = {...props}
     this.data = data
-    this.doUpdate()
+    this.doUpdate(asyncUpdate)
   }
 
-  remove = to => {
-    const data = Object.assign({}, this.data)
-    delete data[to]
-    this.data = data
-    this.doUpdate()
+  remove = (to, asyncUpdate = false) => {
+    if( this.data.hasOwnProperty(to) ) {
+      const data = Object.assign({}, this.data)
+      delete data[to]
+      this.data = data
+      this.doUpdate(asyncUpdate)
+    }
   }
 
   render() {
@@ -78,7 +99,7 @@ class BreadcrumbsItem_ extends React.Component {
 
   componentWillMount() {
     const {breadcrumbs, ...props} = this.props
-    this.install(props.to, props)
+    this.install(props.to, props, true)
   }
 
   componentWillReceiveProps({breadcrumbs, ...nextProps}) {
@@ -89,12 +110,12 @@ class BreadcrumbsItem_ extends React.Component {
       k => (props[k] !== nextProps[k])
     ).length
     if( differences ) {
-      this.install(props.to, props)
+      this.install(nextProps.to, nextProps, true)
     }
   }
 
   componentWillUnmount() {
-    this.remove(this.props.to)
+    this.remove(this.props.to, true)
   }
 
   render() {
