@@ -1,6 +1,6 @@
 {
   "name": "react-breadcrumbs-dynamic",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React dynamic breadcrumbs extremely flexible and easy to use",
   "main": "dist/index.js",
   "repository": {
