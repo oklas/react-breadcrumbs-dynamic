@@ -30,7 +30,9 @@ const TheNavbar = ({children}) => (
 
     <Navbar.Header>
       <Navbar.Brand>
-        <a href="#">react-breadcrumbs-dynamic</a>
+        <a href="//github.com/oklas/react-breadcrumbs-dynamic">
+          react-breadcrumbs-dynamic
+        </a>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>

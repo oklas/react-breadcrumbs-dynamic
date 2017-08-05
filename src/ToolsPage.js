@@ -12,7 +12,7 @@ import {base_path} from './constants'
 const Tools = ({children}) => (
   <div>
     <BreadcrumbsItem glyph='cog' to={base_path+'/tools'}>
-      Tools
+      <b>Tools</b>
     </BreadcrumbsItem>
 
     <h1>Tools</h1>

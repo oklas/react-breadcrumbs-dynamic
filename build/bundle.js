@@ -47330,7 +47330,7 @@ var TheNavbar = function TheNavbar(_ref3) {
         null,
         _react2.default.createElement(
           'a',
-          { href: '#' },
+          { href: '//github.com/oklas/react-breadcrumbs-dynamic' },
           'react-breadcrumbs-dynamic'
         )
       ),
@@ -47524,7 +47524,11 @@ var Tools = function Tools(_ref) {
     _react2.default.createElement(
       _.BreadcrumbsItem,
       { glyph: 'cog', to: _constants.base_path + '/tools' },
-      'Tools'
+      _react2.default.createElement(
+        'b',
+        null,
+        'Tools'
+      )
     ),
     _react2.default.createElement(
       'h1',
