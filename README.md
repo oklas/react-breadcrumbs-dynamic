@@ -19,6 +19,9 @@ Breadcrumbs will be built and (currently) sorted by the length of the
 URL. An application may contain several breadcrumbs with different
 components and design.
 
+Visit live **[DEMO](//oklas.github.io/react-breadcrumbs-dynamic)** (source code of demo in [example](example) folder)
+
+
 # Installation
 
 ``` sh
