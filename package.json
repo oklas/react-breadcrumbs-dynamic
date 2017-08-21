@@ -27,13 +27,11 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "chai": "^4.0.2",
-    "codecov.io": "^0.1.6",
-    "coveralls": "^2.12.0",
-    "expect": "^1.20.2",
-    "istanbul": "^0.4.5",
-    "mocha": "^2.4.2",
+    "chai": "^4.1.1",
+    "enzyme": "^2.9.1",
+    "jest": "^20.0.4",
     "react": "^15.6.1",
+    "react-addons-test-utils": "^15.6.0",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.6.1",
     "react-router-bootstrap": "^0.24.2",
@@ -42,6 +40,27 @@
   },
   "dependencies": {
     "react-broadcast": "^0.3.1"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$",
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text-summary",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.spec.js",
+      "!src/**/*.index.js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ]
   },
   "scripts": {
     "build": "babel --presets es2015,stage-0 -d dist/ src/",
@@ -59,7 +78,7 @@
     "gh-pages:build": "npm run gh-pages:_commit && npm run gh-pages:_filter && npm run gh-pages:_branch && npm run gh-pages:_pick && npm run gh-pages:_commitif && npm run gh-pages:_clean",
     "gh-pages": "npm run gh-pages:check && npm run build:example && npm run gh-pages:build",
     "prepublish": "npm run build",
-    "test": "mocha",
+    "test": "jest --coverage",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha"
   }
 }
