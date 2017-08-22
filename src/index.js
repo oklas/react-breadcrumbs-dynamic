@@ -110,7 +110,9 @@ class BreadcrumbsItem_ extends React.Component {
       k => (props[k] !== nextProps[k])
     ).length
     if( differences ) {
-      this.remove(this.props.to, true);
+      if( this.props.to !== nextProps.to ) {
+        this.remove(this.props.to, true)
+      }
       this.install(nextProps.to, nextProps, true)
     }
   }
