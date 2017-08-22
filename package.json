@@ -24,6 +24,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.1.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -63,7 +64,7 @@
     ]
   },
   "scripts": {
-    "build": "babel --presets es2015,stage-0 -d dist/ src/",
+    "build": "babel -d dist/ src/",
     "build:example": "cd example && webpack",
     "gh-pages:_ismaster": "if [ 'master' != `git rev-parse --abbrev-ref HEAD` ]; then echo error: branch must be master; false ; fi",
     "gh-pages:_isclean": "if [ -n \"$(git status --porcelain)\" ] ; then echo error: workspace must be clean ; false ; fi",
