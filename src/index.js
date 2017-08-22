@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Broadcast, Subscriber } from 'react-broadcast'
 
 
+const MAX_DATA_NUM = 1000000
+
 export function withBreadcrumbs(BreadcrumbsComponent) {
   const Breadcrumbs = (props, context) => {
     return (
@@ -21,11 +23,11 @@ export class BreadcrumbsProvider extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataNum: 0
+      dataNum: MAX_DATA_NUM
     }
     this.data = {}
     this.timer = undefined
-    this.dataNum = 0
+    this.dataNum = MAX_DATA_NUM
   }
 
   doUpdate(asyncUpdate) {
@@ -37,7 +39,7 @@ export class BreadcrumbsProvider extends React.Component {
 
     if( !this.timer ) {
       this.timer = setTimeout(() => {
-        if(this.dataNum > 1000000) {
+        if(this.dataNum > MAX_DATA_NUM ) {
           this.dataNum = 0
         }
         this.setState({dataNum: this.dataNum})
@@ -134,7 +136,7 @@ function propsRenAndDup(props, ren, dup) {
     p[dup[k]] = p[k]
   })
   Object.keys(ren).forEach(k => {
-    p[dup[k]] = p[k]; delete p[k]
+    p[ren[k]] = p[k]; delete p[k]
   })
   return p
 }
