@@ -30,6 +30,10 @@ class TestSimpleApp extends React.Component {
     this.setState({profileUrl: "/user/settings"})
   }
 
+  restoreProfileUrl = () => {
+    this.setState({profileUrl: "/user/profile"})
+  }
+
   removeProfile = () => {
     this.setState({haveProfile: false})
   }
@@ -48,41 +52,60 @@ class TestSimpleApp extends React.Component {
             ? <BreadcrumbsItem to={this.state.profileUrl}>Profile</BreadcrumbsItem>
             : null
           }
-          <button onClick={this[this.props.method]}>
-            Change Profile Url
-          </button>
+          <button className="changeProfileUrl" onClick={this["changeProfileUrl"]} />
+          <button className="restoreProfileUrl" onClick={this["restoreProfileUrl"]} />
+          <button className="removeProfile" onClick={this["removeProfile"]} />
         </div>
       </BreadcrumbsProvider>
     )
   }
 }
 
+
 describe("breadcrumbs simple usage", function() {
   it("can replace prop `to`", function() {
     jest.useFakeTimers()
-    const wrapper = mount(<TestSimpleApp method="changeProfileUrl"/>)
+    const wrapper = mount(<TestSimpleApp/>)
     jest.runAllTimers()
     expect(wrapper.find('a')).to.have.length(3)
     expect(wrapper.find('a').at(0).props().to).to.equal('/')
     expect(wrapper.find('a').at(1).props().to).to.equal('/user')
     expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
-    wrapper.find('button').simulate('click')
+    wrapper.find('.changeProfileUrl').simulate('click')
     jest.runAllTimers()
     expect(wrapper.find('a')).to.have.length(3)
     expect(wrapper.find('a').at(0).props().to).to.equal('/')
     expect(wrapper.find('a').at(1).props().to).to.equal('/user')
     expect(wrapper.find('a').at(2).props().to).to.equal('/user/settings')
-  });
-
-  it("can remove item", function() {
-    jest.useFakeTimers()
-    const wrapper = mount(<TestSimpleApp method="removeProfile"/>)
+    wrapper.find('.restoreProfileUrl').simulate('click')
     jest.runAllTimers()
     expect(wrapper.find('a')).to.have.length(3)
     expect(wrapper.find('a').at(0).props().to).to.equal('/')
     expect(wrapper.find('a').at(1).props().to).to.equal('/user')
     expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
-    wrapper.find('button').simulate('click')
+    wrapper.find('.changeProfileUrl').simulate('click')
+    jest.runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(0).props().to).to.equal('/')
+    expect(wrapper.find('a').at(1).props().to).to.equal('/user')
+    expect(wrapper.find('a').at(2).props().to).to.equal('/user/settings')
+    wrapper.find('.restoreProfileUrl').simulate('click')
+    jest.runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(0).props().to).to.equal('/')
+    expect(wrapper.find('a').at(1).props().to).to.equal('/user')
+    expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
+  });
+
+  it("can remove item", function() {
+    jest.useFakeTimers()
+    const wrapper = mount(<TestSimpleApp/>)
+    jest.runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(0).props().to).to.equal('/')
+    expect(wrapper.find('a').at(1).props().to).to.equal('/user')
+    expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
+    wrapper.find('.removeProfile').simulate('click')
     jest.runAllTimers()
     expect(wrapper.find('a')).to.have.length(2)
     expect(wrapper.find('a').at(0).props().to).to.equal('/')
@@ -127,4 +150,3 @@ describe("breadcrumbs simple usage", function() {
     expect(wrapper.find('a').at(2).props().href).to.equal('/user/profile')
   });
 });
-
