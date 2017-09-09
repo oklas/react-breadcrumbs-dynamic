@@ -18,6 +18,62 @@ export function withBreadcrumbs(BreadcrumbsComponent) {
   return Breadcrumbs
 }
 
+export function withBreadcrumbsItem(BreadcrumbsComponent) {
+  class WithBreadcrumbsItem extends React.Component {
+    constructor(props, context) {
+      super(props, context)
+      this.data = {}
+    }
+
+    componentWillMount = () => {
+      this.update(this.data)
+    }
+
+    componentWillUnmount = () => {
+      this.update({})
+    }
+
+    item = (elem) => {
+      const data = (!elem || !elem.props.to) ?
+        {} : { [elem.props.to]: elem.props }
+      this.update(data)
+    }
+
+    items = (elem) => {
+      const data = {}
+      React.Children.forEach(elem.props.children, function(elem){
+        if(!elem || !elem.props.to) { return }
+        data[elem.props.to] = elem.props
+      })
+      this.update(data)
+    }
+
+    update = (data) => {
+      const remove = Object.keys(this.data).filter(
+        to => !data.hasOwnProperty(to)
+      )
+      remove.forEach(
+        to => this.props.breadcrumbs.remove(to)
+      )
+      Object.keys(data).forEach(
+        to => this.props.breadcrumbs.install(to, data[to])
+      )
+      this.data = data
+    }
+
+    render() {
+      const {item, items} = this
+      const bc = Object.assign({item, items}, this.props.breadcrumbs)
+      return <BreadcrumbsComponent {...this.props} breadcrumbs={bc} />
+    }
+  }
+  return withBreadcrumbs(WithBreadcrumbsItem)
+}
+
+
+export const Dummy = () => null
+export const Item = () => null
+
 
 export class BreadcrumbsProvider extends React.Component {
   constructor(props) {
@@ -28,13 +84,25 @@ export class BreadcrumbsProvider extends React.Component {
     this.data = {}
     this.timer = undefined
     this.dataNum = MAX_DATA_NUM
+    this.mounted = false
+  }
+
+  componentWillMount() {
+    this.canSetState = true
+  }
+
+  componentWillUnmount() {
+    this.canSetState = false
   }
 
   doUpdate(asyncUpdate) {
     ++this.dataNum
 
     if( !asyncUpdate ) {
-      return  this.setState({dataNum: this.dataNum})
+      if(this.canSetState) {
+        this.setState({dataNum: this.dataNum})
+      }
+      return
     }
 
     if( !this.timer ) {
@@ -42,15 +110,22 @@ export class BreadcrumbsProvider extends React.Component {
         if(this.dataNum > MAX_DATA_NUM ) {
           this.dataNum = 0
         }
-        this.setState({dataNum: this.dataNum})
+        if(this.canSetState) {
+          this.setState({dataNum: this.dataNum})
+        }
         this.timer = undefined
       }, 0);
     }
   }
 
   install = (to, props, asyncUpdate = false) => {
-    if(!(props instanceof Object)) {
-      throw new Error("type error: breadcrumbs.install(to:string, props:Object)");
+    if(
+      !( typeof to === 'string' || to instanceof String ) ||
+      !( props instanceof Object )
+    ) {
+      throw new Error(
+        "type error: breadcrumbs.install(to:string, props:Object)"
+      );
     }
 
     const origProps = this.data[to] || {}

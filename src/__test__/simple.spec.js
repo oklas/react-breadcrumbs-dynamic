@@ -7,7 +7,6 @@ import {
   BreadcrumbsProvider,
   Breadcrumbs,
   BreadcrumbsItem,
-  withBreadcrumbs,
 } from '../index';
 
 import spec from './index.spec-set'
@@ -15,12 +14,15 @@ import spec from './index.spec-set'
 
 jest.dontMock('../index')
 
+
 class TestSimpleApp extends React.Component {
   static propTypes = {
     method: PropTypes.string,
     separator: PropTypes.node,
     renameProps: PropTypes.object,
     duplicateProps: PropTypes.object,
+    onlyOneItem: PropTypes.bool,
+    noAnyItem: PropTypes.bool,
   }
 
   state = {
@@ -41,6 +43,8 @@ class TestSimpleApp extends React.Component {
   }
 
   render() {
+    const onlyOneItem = this.props.noAnyItem || this.props.onlyOneItem
+    const noFirstItem = this.props.noAnyItem
     return (
       <BreadcrumbsProvider>
         <div>
@@ -48,10 +52,18 @@ class TestSimpleApp extends React.Component {
             separator={this.props.separator}
             renameProps={this.props.renameProps}
             duplicateProps={this.props.duplicateProps} />
-          <BreadcrumbsItem to='/'>Home</BreadcrumbsItem>
-          <BreadcrumbsItem to='/user'>User</BreadcrumbsItem>
-          { this.state.haveProfile
-            ? <BreadcrumbsItem to={this.state.profileUrl}>Profile</BreadcrumbsItem>
+          { !noFirstItem ?
+            <BreadcrumbsItem to='/'>Home</BreadcrumbsItem>
+            : null
+          }
+          { !onlyOneItem ?
+            <BreadcrumbsItem to='/user'>User</BreadcrumbsItem>
+            : null
+          }
+          { !onlyOneItem && this.state.haveProfile ?
+            <BreadcrumbsItem to={this.state.profileUrl}>
+              Profile
+            </BreadcrumbsItem>
             : null
           }
           <button className="changeProfileUrl" onClick={this["changeProfileUrl"]} />
