@@ -1,0 +1,5 @@
+ratings:
+   paths:
+   - "src/**"
+exclude_paths:
+- src/__test__/**/*
