@@ -1,5 +1,16 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
 ratings:
-   paths:
-   - "src/**"
-exclude_paths:
+  paths:
+  - "src/**"
+exclude_paths: 
+- spec/
 - src/__test__/**/*
