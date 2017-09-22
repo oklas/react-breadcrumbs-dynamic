@@ -4,7 +4,7 @@ import { Panel } from 'react-bootstrap'
 
 import { Events, Statistics, Settings } from './ToolsPages'
 
-import { BreadcrumbsItem } from '../..';
+import { BreadcrumbsItem } from '../../src';
 
 import {base_path} from './constants'
 

@@ -38,7 +38,8 @@
     "react-dom": "^15.6.1",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
-    "webpack": "^3.3.0"
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
     "react-broadcast": "^0.4.2"
@@ -68,6 +69,7 @@
   "scripts": {
     "build": "babel -d dist/ src/index.js",
     "build:example": "cd example && webpack",
+    "start:example": "cd example && webpack-dev-server --config webpack.config.js",
     "gh-pages:_ismaster": "if [ 'master' != `git rev-parse --abbrev-ref HEAD` ]; then echo error: branch must be master; false ; fi",
     "gh-pages:_isclean": "if [ -n \"$(git status --porcelain)\" ] ; then echo error: workspace must be clean ; false ; fi",
     "gh-pages:_isfinished": "if [ -n \"$(git branch --list gh-pages-add)\" ] ; then echo error: branch gh-pages-add must not exists ; false ; fi",
