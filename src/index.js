@@ -224,7 +224,7 @@ const Breadcrumbs_ = (props) => {
   });
 
   const Container = props.container || 'span'
-  const containerParams = props.containerParams
+  const containerProps = props.containerProps
   const Item = props.item || 'a'
   const FinalItem = props.finalItem || Item
   const finalProps = props.finalProps || {}
@@ -234,7 +234,7 @@ const Breadcrumbs_ = (props) => {
   const dup = props.duplicateProps || {}
 
   return (
-    <Container {...containerParams}>
+    <Container {...containerProps}>
 
       {pathnames.map((pathname,i) => {
         return i+1 < count ? (

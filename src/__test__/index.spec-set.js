@@ -75,6 +75,18 @@ describe(`breadcrumbs ${usage} usage`, function() {
     wrapper.unmount()
   });
 
+  it("can specify container props", function() {
+    useFakeTimers()
+    const wrapper = mount(<TestApp
+      container={"article"}
+      containerProps={{data:"containerProps"}}
+    />)
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('article')).to.have.length(1)
+    expect(wrapper.find('article').at(0).props().data).to.equal('containerProps')
+  });
+
   it("can render one item", function() {
     useFakeTimers()
     const wrapper = mount(<TestApp onlyOneItem />);

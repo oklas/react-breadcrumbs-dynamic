@@ -50,6 +50,8 @@ class TestSimpleApp extends React.Component {
         <div>
           <Breadcrumbs
             separator={this.props.separator}
+            container={this.props.container}
+            containerProps={this.props.containerProps}
             renameProps={this.props.renameProps}
             duplicateProps={this.props.duplicateProps} />
           { !noFirstItem ?
