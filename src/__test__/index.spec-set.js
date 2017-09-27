@@ -104,6 +104,16 @@ describe(`breadcrumbs ${usage} usage`, function() {
     wrapper.unmount()
   })
 
+  it("pass react component in props", function() {
+    useFakeTimers()
+    const wrapper = mount(<TestApp reactComponentInProps/>)
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('b')).to.have.length(1)
+    expect(wrapper.find('b').props().children).to.equal('Home')
+    wrapper.unmount()
+  });
+
   it("can rename props", function() {
     useFakeTimers()
     const wrapper = mount(<TestApp renameProps={{to:"href"}} />)

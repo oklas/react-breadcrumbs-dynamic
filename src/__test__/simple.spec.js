@@ -23,6 +23,7 @@ class TestSimpleApp extends React.Component {
     duplicateProps: PropTypes.object,
     onlyOneItem: PropTypes.bool,
     noAnyItem: PropTypes.bool,
+    reactComponentInProps: PropTypes.bool,
   }
 
   state = {
@@ -45,6 +46,7 @@ class TestSimpleApp extends React.Component {
   render() {
     const onlyOneItem = this.props.noAnyItem || this.props.onlyOneItem
     const noFirstItem = this.props.noAnyItem
+    const Home = this.props.reactComponentInProps ? <b>Home</b> : 'Home'
     return (
       <BreadcrumbsProvider>
         <div>
@@ -55,7 +57,7 @@ class TestSimpleApp extends React.Component {
             renameProps={this.props.renameProps}
             duplicateProps={this.props.duplicateProps} />
           { !noFirstItem ?
-            <BreadcrumbsItem to='/'>Home</BreadcrumbsItem>
+            <BreadcrumbsItem to='/'>{Home}</BreadcrumbsItem>
             : null
           }
           { !onlyOneItem ?

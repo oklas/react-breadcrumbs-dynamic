@@ -56,7 +56,7 @@ export function withBreadcrumbsItem(BreadcrumbsComponent) {
         to => this.props.breadcrumbs.remove(to)
       )
       Object.keys(data).forEach(
-        to => this.props.breadcrumbs.install(to, data[to])
+        to => this.props.breadcrumbs.install(to, data[to], true)
       )
       this.data = data
     }
@@ -95,10 +95,10 @@ export class BreadcrumbsProvider extends React.Component {
     this.canSetState = false
   }
 
-  doUpdate(asyncUpdate) {
+  doUpdate(syncUpdate) {
     ++this.dataNum
 
-    if( !asyncUpdate ) {
+    if( syncUpdate ) {
       if(this.canSetState) {
         this.setState({dataNum: this.dataNum})
       }
@@ -118,7 +118,7 @@ export class BreadcrumbsProvider extends React.Component {
     }
   }
 
-  install = (to, props, asyncUpdate = false) => {
+  install = (to, props, syncUpdate = undefined) => {
     if(
       !( typeof to === 'string' || to instanceof String ) ||
       !( props instanceof Object )
@@ -130,25 +130,33 @@ export class BreadcrumbsProvider extends React.Component {
 
     const origProps = this.data[to] || {}
     const keys = Object.keys(origProps).concat(Object.keys(props))
-    const differences = keys.filter(
-      k => (origProps[k] !== props[k])
-    ).length
+    const quicks = [ 'string', 'number', 'undefined', 'boolean', 'symbol' ]
+    const [diff, comp] = keys.reduce( (stat,k) => {
+      return [
+        stat[0] + (origProps[k] !== props[k] ? 1 : 0),
+        stat[1] + (!quicks.includes(typeof(props[k])) ? 1 : 0)
+      ]
+    }, [0, 0])
 
-    if( !differences )
+    if( !diff )
       return
+
+    if( undefined === syncUpdate ) {
+      syncUpdate = !comp
+    }
 
     const data = Object.assign({}, this.data)
     data[to] = {...props}
     this.data = data
-    this.doUpdate(asyncUpdate)
+    this.doUpdate(syncUpdate)
   }
 
-  remove = (to, asyncUpdate = false) => {
+  remove = (to) => {
     if( this.data.hasOwnProperty(to) ) {
       const data = Object.assign({}, this.data)
       delete data[to]
       this.data = data
-      this.doUpdate(asyncUpdate)
+      this.doUpdate(true)
     }
   }
 
@@ -176,7 +184,7 @@ class BreadcrumbsItem_ extends React.Component {
 
   componentWillMount() {
     const {breadcrumbs, ...props} = this.props
-    this.install(props.to, props, true)
+    this.install(props.to, props)
   }
 
   componentWillReceiveProps({breadcrumbs, ...nextProps}) {
@@ -188,14 +196,14 @@ class BreadcrumbsItem_ extends React.Component {
     ).length
     if( differences ) {
       if( this.props.to !== nextProps.to ) {
-        this.remove(this.props.to, true)
+        this.remove(this.props.to)
       }
-      this.install(nextProps.to, nextProps, true)
+      this.install(nextProps.to, nextProps)
     }
   }
 
   componentWillUnmount() {
-    this.remove(this.props.to, true)
+    this.remove(this.props.to)
   }
 
   render() {

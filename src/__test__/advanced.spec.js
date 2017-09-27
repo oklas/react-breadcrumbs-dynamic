@@ -22,6 +22,7 @@ class WithBreadcrubmsItems extends React.Component {
     breadcrumbs: PropTypes.object,
     haveProfile: PropTypes.bool,
     profileUrl: PropTypes.string,
+    reactComponentInProps: PropTypes.bool,
   }
 
   componentWillMount() {
@@ -29,7 +30,14 @@ class WithBreadcrubmsItems extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.configureBreadcrumbs(nextProps)
+    const keys = Object.keys(nextProps).concat(Object.keys(this.props))
+    const skip = ['breadcrumbs']
+    const differences = keys.filter(
+      k => (!skip.includes(k) && this.props[k] !== nextProps[k])
+    ).length
+    if( differences ) {
+      this.configureBreadcrumbs(nextProps)
+    }
   }
 
   configureBreadcrumbs = (props) => {
@@ -40,9 +48,10 @@ class WithBreadcrubmsItems extends React.Component {
         <Item to='/'>Home</Item>
       )
     } else {
+      const Home = this.props.reactComponentInProps ? <b>Home</b> : 'Home'
       props.breadcrumbs.items(
         <div>
-          <Item to='/'>Home</Item>
+          <Item to='/'>{Home}</Item>
           <Item to='/user'>User</Item>
           { props.haveProfile
             ? <Item to={props.profileUrl}>Profile</Item>
@@ -70,6 +79,7 @@ class TestAdvancedAppComponent extends React.Component {
     duplicateProps: PropTypes.object,
     onlyOneItem: PropTypes.bool,
     noAnyItem: PropTypes.bool,
+    reactComponentInProps: PropTypes.bool,
   }
 
   state = {
