@@ -7,7 +7,7 @@ import {
   BreadcrumbsProvider,
   Breadcrumbs,
   BreadcrumbsItem,
-} from '../index';
+} from '../index'
 
 import spec from './index.spec-set'
 

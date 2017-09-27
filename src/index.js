@@ -114,7 +114,7 @@ export class BreadcrumbsProvider extends React.Component {
           this.setState({dataNum: this.dataNum})
         }
         this.timer = undefined
-      }, 0);
+      }, 0)
     }
   }
 
@@ -125,7 +125,7 @@ export class BreadcrumbsProvider extends React.Component {
     ) {
       throw new Error(
         "type error: breadcrumbs.install(to:string, props:Object)"
-      );
+      )
     }
 
     const origProps = this.data[to] || {}
@@ -220,8 +220,8 @@ function propsRenAndDup(props, ren, dup) {
 const Breadcrumbs_ = (props) => {
   const {data} = props.breadcrumbs
   const pathnames = Object.keys(data).sort(function(a, b) {
-    return a.length - b.length;
-  });
+    return a.length - b.length
+  })
 
   const Container = props.container || 'span'
   const containerProps = props.containerProps

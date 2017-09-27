@@ -8,7 +8,7 @@ import {
   Breadcrumbs,
   Dummy as Item,
   withBreadcrumbsItem,
-} from '../index';
+} from '../index'
 
 import spec from './index.spec-set'
 
