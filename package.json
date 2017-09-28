@@ -31,18 +31,18 @@
     "chai": "^4.1.2",
     "codecov": "^2.3.0",
     "enzyme": "^2.9.1",
-    "jest": "^21.0.2",
-    "react": "^15.6.1",
-    "react-addons-test-utils": "^15.6.0",
+    "jest": "^21.2.1",
+    "react": "^15.6.2",
+    "react-addons-test-utils": "^15.6.2",
     "react-bootstrap": "^0.31.2",
-    "react-dom": "^15.6.1",
+    "react-dom": "^15.6.2",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "webpack": "^3.3.0",
-    "webpack-dev-server": "^2.8.2"
+    "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
-    "react-broadcast": "^0.4.2"
+    "react-broadcast": "^0.5.2"
   },
   "jest": {
     "moduleDirectories": [
