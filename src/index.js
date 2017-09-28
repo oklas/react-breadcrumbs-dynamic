@@ -130,6 +130,7 @@ export class BreadcrumbsProvider extends React.Component {
 
     const origProps = this.data[to] || {}
     const keys = Object.keys(origProps).concat(Object.keys(props))
+    // reflect types in the documentation if changed
     const quicks = [ 'string', 'number', 'undefined', 'boolean', 'symbol' ]
     const [diff, comp] = keys.reduce( (stat,k) => {
       return [
