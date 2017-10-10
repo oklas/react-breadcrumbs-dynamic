@@ -31,18 +31,6 @@ describe(`breadcrumbs ${usage} usage`, function() {
     expect(wrapper.find('a').at(0).props().to).to.equal('/')
     expect(wrapper.find('a').at(1).props().to).to.equal('/user')
     expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
-    wrapper.find('.changeProfileUrl').simulate('click')
-    runAllTimers()
-    expect(wrapper.find('a')).to.have.length(3)
-    expect(wrapper.find('a').at(0).props().to).to.equal('/')
-    expect(wrapper.find('a').at(1).props().to).to.equal('/user')
-    expect(wrapper.find('a').at(2).props().to).to.equal('/user/settings')
-    wrapper.find('.restoreProfileUrl').simulate('click')
-    runAllTimers()
-    expect(wrapper.find('a')).to.have.length(3)
-    expect(wrapper.find('a').at(0).props().to).to.equal('/')
-    expect(wrapper.find('a').at(1).props().to).to.equal('/user')
-    expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
     wrapper.unmount()
   })
 
@@ -111,6 +99,41 @@ describe(`breadcrumbs ${usage} usage`, function() {
     expect(wrapper.find('a')).to.have.length(3)
     expect(wrapper.find('b')).to.have.length(1)
     expect(wrapper.find('b').props().children).to.equal('Home')
+    wrapper.unmount()
+  });
+
+  it("support custom update filter", function() {
+    useFakeTimers()
+    const wrapper = mount(<TestApp
+      reactComponentInProps
+      shouldBreadcrumbsUpdate={(prevProps, props) => {
+        return prevProps.to != props.to
+      }}
+    />)
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
+    wrapper.find('.changeProfileUrl').simulate('click')
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(2).props().to).to.equal('/user/settings')
+    wrapper.find('.restoreProfileUrl').simulate('click')
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
+    wrapper.unmount()
+  });
+
+  it("skip update when filtered by custom update filter", function() {
+    useFakeTimers()
+    const wrapper = mount(<TestApp
+      reactComponentInProps
+      shouldBreadcrumbsUpdate={(prevProps, props) => {
+        return false
+      }}
+    />)
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(0)
     wrapper.unmount()
   });
 

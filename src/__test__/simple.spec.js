@@ -24,6 +24,7 @@ class TestSimpleApp extends React.Component {
     onlyOneItem: PropTypes.bool,
     noAnyItem: PropTypes.bool,
     reactComponentInProps: PropTypes.bool,
+    shouldBreadcrumbsUpdate: PropTypes.func,
   }
 
   state = {
@@ -48,7 +49,9 @@ class TestSimpleApp extends React.Component {
     const noFirstItem = this.props.noAnyItem
     const Home = this.props.reactComponentInProps ? <b>Home</b> : 'Home'
     return (
-      <BreadcrumbsProvider>
+      <BreadcrumbsProvider
+        shouldBreadcrumbsUpdate={this.props.shouldBreadcrumbsUpdate}
+      >
         <div>
           <Breadcrumbs
             separator={this.props.separator}

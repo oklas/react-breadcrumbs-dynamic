@@ -5,6 +5,7 @@ import { Broadcast, Subscriber } from 'react-broadcast'
 
 const MAX_DATA_NUM = 1000000
 
+
 export function withBreadcrumbs(BreadcrumbsComponent) {
   const Breadcrumbs = (props, context) => {
     return (
@@ -17,6 +18,7 @@ export function withBreadcrumbs(BreadcrumbsComponent) {
   }
   return Breadcrumbs
 }
+
 
 export function withBreadcrumbsItem(BreadcrumbsComponent) {
   class WithBreadcrumbsItem extends React.Component {
@@ -76,6 +78,10 @@ export const Item = () => null
 
 
 export class BreadcrumbsProvider extends React.Component {
+  static propTypes = {
+    shouldBreadcrumbsUpdate: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -118,6 +124,19 @@ export class BreadcrumbsProvider extends React.Component {
     }
   }
 
+  _diffAndComplicatedCounts(prevProps, props) {
+    const keys = Object.keys(prevProps).concat(Object.keys(props))
+    // reflect types in the documentation if changed
+    const quicks = [ 'string', 'number', 'undefined', 'boolean', 'symbol' ]
+    const [diff, comp] = keys.reduce( (stat,k) => {
+      return [
+        stat[0] + (prevProps[k] !== props[k] ? 1 : 0),
+        stat[1] + (!quicks.includes(typeof(props[k])) ? 1 : 0)
+      ]
+    }, [0, 0])
+    return [diff, comp]
+  }
+
   install = (to, props, syncUpdate = undefined) => {
     if(
       !( typeof to === 'string' || to instanceof String ) ||
@@ -128,22 +147,22 @@ export class BreadcrumbsProvider extends React.Component {
       )
     }
 
-    const origProps = this.data[to] || {}
-    const keys = Object.keys(origProps).concat(Object.keys(props))
-    // reflect types in the documentation if changed
-    const quicks = [ 'string', 'number', 'undefined', 'boolean', 'symbol' ]
-    const [diff, comp] = keys.reduce( (stat,k) => {
-      return [
-        stat[0] + (origProps[k] !== props[k] ? 1 : 0),
-        stat[1] + (!quicks.includes(typeof(props[k])) ? 1 : 0)
-      ]
-    }, [0, 0])
+    const prevProps = this.data[to] || {}
 
-    if( !diff )
-      return
+    if( this.props.shouldBreadcrumbsUpdate ) {
+      const diff = this.props.shouldBreadcrumbsUpdate(prevProps, props)
 
-    if( undefined === syncUpdate ) {
-      syncUpdate = !comp
+      if( !diff ) return
+
+      syncUpdate = true
+    } else {
+      const [diff, comp] = this._diffAndComplicatedCounts(prevProps, props)
+
+      if( !diff ) return
+
+      if( undefined === syncUpdate ) {
+        syncUpdate = !comp
+      }
     }
 
     const data = Object.assign({}, this.data)
@@ -176,6 +195,10 @@ export class BreadcrumbsProvider extends React.Component {
 
 
 class BreadcrumbsItem_ extends React.Component {
+  static propTypes = {
+    to: PropTypes.string.isRequired,
+  }
+
   constructor(props) {
     super(props)
     const {breadcrumbs: {install, remove}} = props
@@ -191,16 +214,10 @@ class BreadcrumbsItem_ extends React.Component {
   componentWillReceiveProps({breadcrumbs, ...nextProps}) {
     const {...props} = this.props
     delete props.breadcrumbs
-    const keys = Object.keys(nextProps).concat(Object.keys(props))
-    const differences = keys.filter(
-      k => (props[k] !== nextProps[k])
-    ).length
-    if( differences ) {
-      if( this.props.to !== nextProps.to ) {
-        this.remove(this.props.to)
-      }
-      this.install(nextProps.to, nextProps)
+    if( this.props.to !== nextProps.to ) {
+      this.remove(this.props.to)
     }
+    this.install(nextProps.to, nextProps)
   }
 
   componentWillUnmount() {
@@ -212,7 +229,9 @@ class BreadcrumbsItem_ extends React.Component {
   }
 }
 
+
 export const BreadcrumbsItem = withBreadcrumbs(BreadcrumbsItem_)
+
 
 function propsRenAndDup(props, ren, dup) {
   const p = Object.assign({}, props)

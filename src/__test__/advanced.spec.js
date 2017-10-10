@@ -118,10 +118,17 @@ class TestAdvancedAppComponent extends React.Component {
 }
 
 const TestAdvancedApp = (props) => (
-  <BreadcrumbsProvider>
+  <BreadcrumbsProvider
+    shouldBreadcrumbsUpdate={props.shouldBreadcrumbsUpdate}
+  >
     <TestAdvancedAppComponent {...props}/>
   </BreadcrumbsProvider>
 )
+
+TestAdvancedApp.propTypes = {
+  shouldBreadcrumbsUpdate: PropTypes.func,
+}
+
 
 
 spec(TestAdvancedApp, true)
