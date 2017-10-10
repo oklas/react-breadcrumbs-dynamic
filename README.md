@@ -36,7 +36,8 @@ npm install --save react-breadcrumbs-dynamic
 Add a `<BreadcrumbsProvider/>` component to the root of your React component
 tree like you do it for `react-redux` or `react-router`.
 The `BreadcrumbsProvider` component must be parent in react tree of all
-components of this library with any deeps of nesting.
+components of this library with any deeps of nesting. See also
+`Advanced Usage and Performance` section.
 
 ``` javascript
 import {BreadcrumbsProvider} from 'react-breadcrumbs-dynamic'
@@ -49,6 +50,7 @@ const theApp = (
 
 ReactDOM.render(theApp, document.getElementById('root'))
 ```
+
 
 # Instance configuration
 
@@ -94,7 +96,7 @@ contain bearing key with URL for breadcrumbs working. So if you use simple
 `renameProps`, or need to specify both `to` and `href`.
 
 This items configuration method is simple and enough effective. More details
-about performance is described in section Advanced Usage and Performance.
+about performance is described in section `Advanced Usage and Performance`.
 
 Simple configure of the breadcrumbs items:
 
@@ -142,6 +144,7 @@ The result of above code will represent breadcrumbs like this:
   <b to='/user/contacts'>Contacts</b>
 ```
 
+___
 
 # Advanced Usage and Performance
 
@@ -149,7 +152,7 @@ This library does everything possible to make the thing simple and enough
 effective. However, the library cannot know about your application state nor
 can undertake deep inspections of your data to detect changes in efficiency
 considerations. This section describes more effective but more complicated
-way which allows achieve maximum efficiency.
+ways that provides maximum efficiency.
 
 
 ## Avoid to pass arrays/objects/jsx in props of `BreadcrumbsItem`
@@ -193,23 +196,59 @@ render() {
 ```
 
 
-## Best performance
+## Custom update filter
 
-Best performance can be achieved when breadcrumbs items is applied only at time
-of change application data related to breadcrubms. The library provides
-interface for that. The higher order component creation function
-`withBreadcrumbsItem` integrate `breadcrumbs` object with `item()` and `items()`
-functions into props of your `Component`.
+Another way to is to use breadcrumbs item update filter. This is achieved by
+specifying the function in `shouldBreadcrumbsUpdate` param of
+`BreadcrumbsProvider` like this:
+
+``` javascript
+const theApp = (
+  <BreadcrumbsProvider
+    shouldBreadcrumbsUpdate = {
+      (prevProps, props) => {
+        // custom breadcrumbs item update filter condition
+        return prevProps.to != props.to
+      }
+    }
+  />
+    <App />
+  </BreadcrumbsProvider>
+)
+```
+
+The item update filter must make sure that the difference in the params
+is really due to different source data. For example condition
+`{k:'v'} != {k:'v'}` shows that this is the different data, although in
+fact source data is the same and have not changed.
+
+**Warning:** if  update filter will determine the data changing at the
+time when the original data was unchanged this forms an infinite loop.
+
+On the other hand, if some data is not recognized as changed, the breadcrumbs
+will not be updated and will not looks like expected.
+
+
+## Alternate usage
+
+An alternative and more flexible and same time more complicated way is to
+update breadcrumbs only at time of change of application data which related
+to breadcrubms item. The library provides interface for that. The higher order
+component creation function `withBreadcrumbsItem` will integrate `breadcrumbs`
+object with `item()` and `items()` functions into props of your `Component`.
 
 **Warning**: Never call `breadcrumbs.item()` or `breadcrumbs.items()` from
-`render()` or `componentWillUpdate()` methods of your component, nor from
-`constructor()`. This mean breadcrumbs item must be not depend from state of
+`render()` or `componentWillUpdate()` methods or from `constructor()` of your
+component. This mean breadcrumbs item must be not depend from state of
 your current "with breadcrubms" component.
 
 This way allows to specify arrays and objects and react elements (i.e. jsx) in
 props but functions `breadcrumbs.item()` or `breadcrumbs.items()` must be
-called from the `if` statement, where the condition performs checking for
-changes the application data which related to breadcrubms.
+called from the `if` statement, where is the update condition which performs
+checking for changes the application data which related to breadcrubms item.
+
+**Warning:** if update condition will determine the data changing at the time
+when the original data was unchanged this forms an infinite loop.
 
 
 ``` javascript
@@ -226,7 +265,7 @@ class CustomComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // mandatory required change checking condition
+    // mandatory required update filter condition
     if( this.props.slug !== nextProps.slug ) {
       this.configureBreadcrumbs(nextProps)
     }
@@ -260,7 +299,7 @@ class CustomComponent extends React.Component {
 * `container` - wrapper component (default is `span`)
 * `containerProps` - props for `container` components if defined (default: {})
 * `renameProps` - rename props passed from item intermedator to item
-* `duplicateProps` - duplicate same as `renameProps` but without remove original
+* `duplicateProps` - duplicate same as `renameProps` but without remove original.
 
 
 ## `BreadcrumbsItem` component props
@@ -270,19 +309,23 @@ for `BreadcrumbsItem` will be passed to correspondent breadcrumb component speci
 in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
 
 * `to` - mandatory required bearing key with URL for breadcrumbs working
-* `...` - any more number of properties
+* `...` - any more number of properties.
 
 
 ## `BreadcrumbsProvider` component props
 
-The `BreadcrumbsProvider` have not props.
+The `BreadcrumbsProvider` props:
+
+* `shouldBreadcrumbsUpdate` - custom breadcrumbs item update filter which is
+the function with two args, where first arg is `prevProps` and second arg is
+`props` - previous and current breadcrumbs item props respectively.
 
 
 ## `withBreadcrumbsItem()` function
 
 This function creates higher order component. It acquire one argument with your
 custom react component and return appropriate component which will have
-`breadcrumbs` in its props with methods `item()` and `items()`
+`breadcrumbs` in its props with methods `item()` and `items()`.
 
 
 ## `this.props.breadcrumbs.item()` and `this.props.breadcrumbs.items()`
