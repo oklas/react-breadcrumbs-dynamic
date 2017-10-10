@@ -44,6 +44,14 @@ class TestSimpleApp extends React.Component {
     this.setState({haveProfile: false})
   }
 
+  testWrongInstallToKey = () => {
+    this.props.breadcrumbs.install([], {})
+  }
+
+  testWrongInstallPropsType = () => {
+    this.props.breadcrumbs.install(new String('/'), [])
+  }
+
   render() {
     const onlyOneItem = this.props.noAnyItem || this.props.onlyOneItem
     const noFirstItem = this.props.noAnyItem
@@ -76,6 +84,8 @@ class TestSimpleApp extends React.Component {
           <button className="changeProfileUrl" onClick={this["changeProfileUrl"]} />
           <button className="restoreProfileUrl" onClick={this["restoreProfileUrl"]} />
           <button className="removeProfile" onClick={this["removeProfile"]} />
+          <button className="testWrongInstallToKey" onClick={this["testWrongInstallToKey"]} />
+          <button className="testWrongInstallPropsType" onClick={this["testWrongInstallPropsType"]} />
         </div>
       </BreadcrumbsProvider>
     )

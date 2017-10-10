@@ -140,7 +140,7 @@ export class BreadcrumbsProvider extends React.Component {
   install = (to, props, syncUpdate = undefined) => {
     if(
       !( typeof to === 'string' || to instanceof String ) ||
-      !( props instanceof Object )
+      !( props instanceof Object && !(props instanceof Array) )
     ) {
       throw new Error(
         "type error: breadcrumbs.install(to:string, props:Object)"

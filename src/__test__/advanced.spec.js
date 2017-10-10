@@ -62,9 +62,20 @@ class WithBreadcrubmsItems extends React.Component {
     }
   }
 
+  testWrongInstallToKey = () => {
+    this.props.breadcrumbs.install([], {})
+  }
+
+  testWrongInstallPropsType = () => {
+    this.props.breadcrumbs.install(new String('/'), [])
+  }
+
   render() {
     return (
-      <div />
+      <div>
+        <button className="testWrongInstallToKey" onClick={this["testWrongInstallToKey"]} />
+        <button className="testWrongInstallPropsType" onClick={this["testWrongInstallPropsType"]} />
+      </div>
     )
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow, mount, render } from 'enzyme'
 import { expect } from 'chai'
-import { Dummy, Item } from '../index'
+import { Dummy, Item, BreadcrumbsProvider, withBreadcrumbsItem } from '../index'
 
 export default function spec(TestApp, advanced) {
 
@@ -162,6 +162,20 @@ describe(`breadcrumbs ${usage} usage`, function() {
     expect(wrapper.find('a').at(1).props().href).to.equal('/user')
     expect(wrapper.find('a').at(2).props().to).to.equal('/user/profile')
     expect(wrapper.find('a').at(2).props().href).to.equal('/user/profile')
+    wrapper.unmount()
+  })
+
+  it("throw in install for wrong types", function() {
+    useFakeTimers()
+    const wrapper = mount(<TestApp/>)
+    expect(wrapper.find('.testWrongInstallToKey')).to.have.length(1)
+    expect(wrapper.find('.testWrongInstallPropsType')).to.have.length(1)
+    expect(() => {
+      wrapper.find('.testWrongInstallToKey').simulate('click')
+    }).to.throw()
+    expect(() => {
+      wrapper.find('.testWrongInstallPropsType').simulate('click')
+    }).to.throw()
     wrapper.unmount()
   })
 
