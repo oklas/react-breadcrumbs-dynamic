@@ -13,10 +13,10 @@
 
 
 This is completely router-independent react breadcrumbs solution which means
-you can use it with any version of React Router (2 or 3 or 4) or any other
-routing library for React or without routing at all. What you need is just
+that you can use it with any version of React Router (2 or 3 or 4) or any other
+routing library for React or without routing at all. All what you need is just
 to specify components for breadcrumbs items and its props. However props and
-components need to be specified separately. Props need to specify in
+components should be specified separately. Props should be specified in
 intermediator component `BreadcrumbsItem` anywhere in your hierarchy of
 components and routes. Breadcrumbs will be built and (currently) sorted by the
 length of the URL. An application may contain several breadcrumbs with different
@@ -35,9 +35,9 @@ npm install --save react-breadcrumbs-dynamic
 
 Add a `<BreadcrumbsProvider/>` component to the root of your React component
 tree like you do it for `react-redux` or `react-router`.
-The `BreadcrumbsProvider` component must be parent in react tree of all
+In the react tree the `BreadcrumbsProvider` component must be parent of all
 components of this library with any deeps of nesting. See also
-`Advanced Usage and Performance` section.
+*Advanced Usage and Performance* section.
 
 ``` javascript
 import {BreadcrumbsProvider} from 'react-breadcrumbs-dynamic'
@@ -55,10 +55,10 @@ ReactDOM.render(theApp, document.getElementById('root'))
 # Instance configuration
 
 The breadcrumbs instance is implemented in the `Breadcrumbs` component. The
-`Breadcrumbs` component need to be configured, however all params have default
+`Breadcrumbs` component needs to be configured, however all params have default
 value. In this example the `react-router` v4 routing specification is used.
 Please note that `item` and `finalItem` require react component (class) instead
-of react element. However `separator` require react element.
+of react element. However `separator` requires react element.
 
 ``` javascript
 import {Breadcrumbs} from 'react-breadcrumbs-dynamic'
@@ -88,15 +88,13 @@ const Page = (props) => (
 
 # Add item to breadcrumbs
 
-Each routed component in your react tree generally associated with route
+Each routed component in your react tree is generally associated with route
 and with correspondent breadcrumbs. Each component may add its breadcrumbs
-item. The `BreadcrumbsItem` component mandatory require the `to` prop which
-contain bearing key with URL for breadcrumbs working. So if you use simple
+item. The `BreadcrumbsItem` component mandatory requires the `to` prop which
+contains bearing key with URL for breadcrumbs working. So if you use simple
 `<a>` tag for breadcrumb url - you need to use the `duplicateProps` and/or
 `renameProps`, or need to specify both `to` and `href`.
-
-This items configuration method is simple and enough effective. More details
-about performance is described in section `Advanced Usage and Performance`.
+See also *Advanced Usage and Performance* section.
 
 Simple configure of the breadcrumbs items:
 
@@ -148,20 +146,20 @@ ___
 
 # Advanced Usage and Performance
 
-This library does everything possible to make the thing simple and enough
-effective. However, the library cannot know about your application state nor
+This library makes everything possible to make the things simple and effective. 
+However, the library cannot know about your application state nor
 can undertake deep inspections of your data to detect changes in efficiency
-considerations. This section describes more effective but more complicated
-ways that provides maximum efficiency.
+considerations.
 
 
 ## Avoid to pass arrays/objects/jsx in props of `BreadcrumbsItem`
 
-Each time when jsx code like this: `<tag>...</tag>` or `<Component t='...'/>`
-is executed the new react element instance is created, even if you pass same
-props. Also objects or arrays frequently created inplace and represent itself
-new instance which considered as value change event even if it has same values
-in depth.
+When jsx code like this: `<tag>...</tag>` or `<Component t='...'/>`
+is evaluated  the new react element instance is created even if the same props
+was passed. Same thing is when code contains `{}` or `[]` - the new object or
+array is created in-place. All this cases represents new instance which is
+considered as value change event even if this arrays/objects/jsx have same
+values in depth.
 
 The Library does not analyze data into depth to detect changes. So when you
 pass new react element or newly created array or object to `BreadcrumbsItem`
@@ -178,7 +176,7 @@ performance:
 * boolean
 * symbol
 
-So to avoid additional processing does not specify arrays or objects or react
+So to avoid additional processing you should not specify arrays or objects or react
 elements (ie jsx) as props of `BreadcrumbsItem` in `render()` method:
 
 ``` javascript
@@ -198,7 +196,7 @@ render() {
 
 ## Custom update filter
 
-Another way to is to use breadcrumbs item update filter. This is achieved by
+Another way is to use breadcrumbs item update filter. This is achieved by
 specifying the function in `shouldBreadcrumbsUpdate` param of
 `BreadcrumbsProvider` like this:
 
@@ -217,38 +215,38 @@ const theApp = (
 )
 ```
 
-The item update filter must make sure that the difference in the params
-is really due to different source data. For example condition
+The item update filter must guarantee that the difference in the params
+are really due to different source data. For example condition
 `{k:'v'} != {k:'v'}` shows that this is the different data, although in
-fact source data is the same and have not changed.
+fact source data is the same and has not been changed.
 
-**Warning:** if  update filter will determine the data changing at the
-time when the original data was unchanged this forms an infinite loop.
+**Warning:** if update filter determines the data changing at the time when
+the original data has been unchanged this forms an infinite loop.
 
 On the other hand, if some data is not recognized as changed, the breadcrumbs
-will not be updated and will not looks like expected.
+will not be updated and will not look like expected.
 
 
 ## Alternate usage
 
-An alternative and more flexible and same time more complicated way is to
-update breadcrumbs only at time of change of application data which related
-to breadcrubms item. The library provides interface for that. The higher order
+An alternative, more flexible and at the same time more complicated way is to
+update breadcrumbs only when related to breadcrubms item data is changed.
+The library provides interface for that. The higher order
 component creation function `withBreadcrumbsItem` will integrate `breadcrumbs`
 object with `item()` and `items()` functions into props of your `Component`.
 
 **Warning**: Never call `breadcrumbs.item()` or `breadcrumbs.items()` from
 `render()` or `componentWillUpdate()` methods or from `constructor()` of your
-component. This mean breadcrumbs item must be not depend from state of
+component. This means breadcrumbs item must be not depend from state of
 your current "with breadcrubms" component.
 
 This way allows to specify arrays and objects and react elements (i.e. jsx) in
 props but functions `breadcrumbs.item()` or `breadcrumbs.items()` must be
-called from the `if` statement, where is the update condition which performs
-checking for changes the application data which related to breadcrubms item.
+called from the `if` statement, where is the update condition which 
+checks for changes the application related to breadcrubms item data.
 
-**Warning:** if update condition will determine the data changing at the time
-when the original data was unchanged this forms an infinite loop.
+**Warning:** if update condition determines the data changing at the time when
+the original data has been unchanged this forms an infinite loop.
 
 
 ``` javascript
@@ -332,13 +330,13 @@ custom react component and return appropriate component which will have
 
 Methods to configure breadcrumbs item of your current react component.
 These methods will be added to props by HOC of `withBreadcrumbsItem` function.
-The function `item()` accept one react component with props and the functions
+The function `item()` accepts one react component with props and the functions
 `items()` accepts react component with children which may contain any number of
 components to create correspondent number of breadcrumbs item. The breadcrumbs
-item for this functions may be any react component and only props is
+item for these functions may be any react component and only props is
 significant. The `Dummy` and the `Item` components is exported by library
 for this case. Each function accepts null to reset breadcrumbs items to none if
-current component no more needed to represent any breadcrumbs items.
+current component is no more needed to represent any breadcrumbs items.
 
 
 ## LICENSE
