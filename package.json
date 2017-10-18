@@ -2,7 +2,7 @@
   "name": "react-breadcrumbs-dynamic",
   "version": "1.0.8",
   "description": "React dynamic breadcrumbs extremely flexible and easy to use",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/oklas/react-breadcrumbs-dynamic.git"
