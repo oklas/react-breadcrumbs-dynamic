@@ -29,6 +29,9 @@ Visit live **[DEMO](//oklas.github.io/react-breadcrumbs-dynamic)** (source code 
 
 ``` sh
 npm install --save react-breadcrumbs-dynamic
+
+# definitions may be installed if typescript is used
+npm install --save @types/react-breadcrumbs-dynamic
 ```
 
 # Base configuration
