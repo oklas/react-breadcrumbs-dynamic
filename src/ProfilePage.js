@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { BreadcrumbsItem } from '../..';
+import { BreadcrumbsItem } from '../../src';
 
 import {base_path} from './constants'
 

@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 import {base_path} from './constants'
 
-import { Breadcrumbs } from '../..';
+import { Breadcrumbs } from '../../src';
 
 const Item = ({to, glyph, ...props}) => (
   <LinkContainer to={to}>

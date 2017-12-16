@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App';
 
-import { BreadcrumbsProvider } from '../..';
+import { BreadcrumbsProvider } from '../../src';
 
 const app = (
   <BrowserRouter>

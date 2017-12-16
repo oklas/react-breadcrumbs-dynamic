@@ -4,7 +4,7 @@ import { Grid } from 'react-bootstrap'
 
 import { BreadcrumbsWithIcon, BreadcrumbsSimple } from './AppBreadcrumbs';
 
-import { BreadcrumbsItem } from '../..';
+import { BreadcrumbsItem } from '../../src';
 
 import Navbar from './Navbar'
 import MainPage from './MainPage'
