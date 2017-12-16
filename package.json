@@ -42,7 +42,7 @@
     "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
-    "react-broadcast": "^0.5.2"
+    "react-through": "^1.0.1"
   },
   "jest": {
     "moduleDirectories": [
@@ -83,6 +83,7 @@
     "gh-pages:build": "npm run gh-pages:_commit && npm run gh-pages:_filter && npm run gh-pages:_branch && npm run gh-pages:_pick && npm run gh-pages:_commitif && npm run gh-pages:_clean",
     "gh-pages": "npm run gh-pages:check && npm run build:example && npm run gh-pages:build",
     "prepublish": "npm run build",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test-debug": "jest --bail --verbose"
   }
 }
