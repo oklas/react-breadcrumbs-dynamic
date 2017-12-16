@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { shallow, mount, render } from 'enzyme'
+import enzyme, { shallow, mount, render } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
-
 import {
   BreadcrumbsProvider,
   Breadcrumbs,
@@ -13,6 +13,7 @@ import {
 import spec from './index.spec-set'
 
 
+enzyme.configure({ adapter: new Adapter() });
 jest.dontMock('../index')
 
 
