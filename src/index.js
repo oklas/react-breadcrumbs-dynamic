@@ -10,6 +10,8 @@ import {
 } from 'react-through'
 
 
+export const breadcrumbsThroughArea = 'breadcrumbs'
+
 export const withBreadcrumbs = throughInterface('breadcrumbs')
 
 export const withBreadcrumbsItem = throughAgent('breadcrumbs', 'to')
