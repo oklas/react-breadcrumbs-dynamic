@@ -14,6 +14,8 @@ export const withBreadcrumbs = throughInterface('breadcrumbs')
 
 export const withBreadcrumbsItem = throughAgent('breadcrumbs', 'to')
 
+export const withBreadcrumbsContainer = throughContainer('breadcrumbs')
+
 export const Dummy = () => null
 
 export const Item = () => null
@@ -80,4 +82,4 @@ const Breadcrumbs_ = (props) => {
   )
 }
 
-export const Breadcrumbs = throughContainer('breadcrumbs')(Breadcrumbs_)
+export const Breadcrumbs = withBreadcrumbsContainer(Breadcrumbs_)
