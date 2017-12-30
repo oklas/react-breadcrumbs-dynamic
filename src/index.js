@@ -12,11 +12,13 @@ import {
 
 export const breadcrumbsThroughArea = 'breadcrumbs'
 
-export const withBreadcrumbs = throughInterface('breadcrumbs')
+export const breadcrumbsBearingKey = 'to'
 
-export const withBreadcrumbsItem = throughAgent('breadcrumbs', 'to')
+export const withBreadcrumbs = throughInterface(breadcrumbsThroughArea)
 
-export const withBreadcrumbsContainer = throughContainer('breadcrumbs')
+export const withBreadcrumbsItem = throughAgent(breadcrumbsThroughArea, breadcrumbsBearingKey)
+
+export const withBreadcrumbsContainer = throughContainer(breadcrumbsThroughArea)
 
 export const Dummy = () => null
 
@@ -24,7 +26,7 @@ export const Item = () => null
 
 export const BreadcrumbsProvider = ThroughProvider
 
-export const BreadcrumbsItem = throughAgentFactory('breadcrumbs', 'to')
+export const BreadcrumbsItem = throughAgentFactory(breadcrumbsThroughArea, breadcrumbsBearingKey)
 
 
 function propsRenAndDup(props, ren, dup) {
@@ -40,7 +42,7 @@ function propsRenAndDup(props, ren, dup) {
 
 
 const Breadcrumbs_ = (props) => {
-  const data = props.breadcrumbs
+  const data = props[breadcrumbsThroughArea]
   const pathnames = Object.keys(data).sort(function(a, b) {
     return a.length - b.length
   })

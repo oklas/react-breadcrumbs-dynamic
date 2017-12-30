@@ -8,6 +8,7 @@ import {
   Breadcrumbs,
   Dummy as Item,
   withBreadcrumbsItem,
+  breadcrumbsThroughArea as throughArea,
 } from '../index'
 
 import spec from './index.spec-set'
@@ -20,7 +21,7 @@ jest.dontMock('../index')
 @withBreadcrumbsItem
 class WithBreadcrubmsItems extends React.Component {
   static propTypes = {
-    breadcrumbs: PropTypes.object,
+    [throughArea]: PropTypes.object,
     haveProfile: PropTypes.bool,
     profileUrl: PropTypes.string,
     reactComponentInProps: PropTypes.bool,
@@ -32,7 +33,7 @@ class WithBreadcrubmsItems extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const keys = Object.keys(nextProps).concat(Object.keys(this.props))
-    const skip = ['breadcrumbs']
+    const skip = [throughArea]
     const differences = keys.filter(
       k => (!skip.includes(k) && this.props[k] !== nextProps[k])
     ).length
@@ -43,14 +44,14 @@ class WithBreadcrubmsItems extends React.Component {
 
   configureBreadcrumbs = (props) => {
     if(props.noAnyItem) {
-      props.breadcrumbs.item(null)
+      props[throughArea].item(null)
     } else if(props.onlyOneItem) {
-      props.breadcrumbs.item(
+      props[throughArea].item(
         <Item to='/'>Home</Item>
       )
     } else {
       const Home = this.props.reactComponentInProps ? <b>Home</b> : 'Home'
-      props.breadcrumbs.items(
+      props[throughArea].items(
         <div>
           <Item to='/'>{Home}</Item>
           <Item to='/user'>User</Item>
@@ -64,11 +65,11 @@ class WithBreadcrubmsItems extends React.Component {
   }
 
   testWrongInstallToKey = () => {
-    this.props.breadcrumbs.install([], {})
+    this.props[throughArea].install([], {})
   }
 
   testWrongInstallPropsType = () => {
-    this.props.breadcrumbs.install(new String('/'), [])
+    this.props[throughArea].install(new String('/'), [])
   }
 
   render() {
@@ -84,7 +85,7 @@ class WithBreadcrubmsItems extends React.Component {
 
 class TestAdvancedAppComponent extends React.Component {
   static propTypes = {
-    breadcrumbs: PropTypes.object,
+    [throughArea]: PropTypes.object,
     method: PropTypes.string,
     separator: PropTypes.node,
     renameProps: PropTypes.object,

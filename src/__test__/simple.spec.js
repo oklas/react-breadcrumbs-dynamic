@@ -8,6 +8,7 @@ import {
   BreadcrumbsProvider,
   Breadcrumbs,
   BreadcrumbsItem,
+  breadcrumbsThroughArea as throughArea,
 } from '../index'
 
 import spec from './index.spec-set'
@@ -47,11 +48,11 @@ class TestSimpleApp extends React.Component {
   }
 
   testWrongInstallToKey = () => {
-    this.props.breadcrumbs.install([], {})
+    this.props[throughArea].install([], {})
   }
 
   testWrongInstallPropsType = () => {
-    this.props.breadcrumbs.install(new String('/'), [])
+    this.props[throughArea].install(new String('/'), [])
   }
 
   render() {
