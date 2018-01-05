@@ -72,7 +72,8 @@
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.jsx$": "babel-jest"
-    }
+    },
+    "testURL": "http://localhost"
   },
   "scripts": {
     "build": "babel -d dist/ src/index.js",
