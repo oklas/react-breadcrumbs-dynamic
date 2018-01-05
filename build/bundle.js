@@ -4345,7 +4345,7 @@ var base_path = exports.base_path = '/react-breadcrumbs-dynamic';
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Breadcrumbs = exports.BreadcrumbsItem = exports.BreadcrumbsProvider = exports.Item = exports.Dummy = exports.withBreadcrumbsItem = exports.withBreadcrumbs = undefined;
+exports.Breadcrumbs = exports.BreadcrumbsItem = exports.BreadcrumbsProvider = exports.Item = exports.Dummy = exports.withBreadcrumbsContainer = exports.withBreadcrumbsItem = exports.withBreadcrumbs = exports.breadcrumbsBearingKey = exports.breadcrumbsThroughArea = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -4361,9 +4361,15 @@ var _reactThrough = __webpack_require__(496);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var withBreadcrumbs = exports.withBreadcrumbs = (0, _reactThrough.throughInterface)('breadcrumbs');
+var breadcrumbsThroughArea = exports.breadcrumbsThroughArea = 'breadcrumbs';
 
-var withBreadcrumbsItem = exports.withBreadcrumbsItem = (0, _reactThrough.throughAgent)('breadcrumbs', 'to');
+var breadcrumbsBearingKey = exports.breadcrumbsBearingKey = 'to';
+
+var withBreadcrumbs = exports.withBreadcrumbs = (0, _reactThrough.throughInterface)(breadcrumbsThroughArea);
+
+var withBreadcrumbsItem = exports.withBreadcrumbsItem = (0, _reactThrough.throughAgent)(breadcrumbsThroughArea, breadcrumbsBearingKey);
+
+var withBreadcrumbsContainer = exports.withBreadcrumbsContainer = (0, _reactThrough.throughContainer)(breadcrumbsThroughArea);
 
 var Dummy = exports.Dummy = function Dummy() {
   return null;
@@ -4375,7 +4381,7 @@ var Item = exports.Item = function Item() {
 
 var BreadcrumbsProvider = exports.BreadcrumbsProvider = _reactThrough.ThroughProvider;
 
-var BreadcrumbsItem = exports.BreadcrumbsItem = (0, _reactThrough.throughAgentFactory)('breadcrumbs', 'to');
+var BreadcrumbsItem = exports.BreadcrumbsItem = (0, _reactThrough.throughAgentFactory)(breadcrumbsThroughArea, breadcrumbsBearingKey);
 
 function propsRenAndDup(props, ren, dup) {
   var p = Object.assign({}, props);
@@ -4389,7 +4395,7 @@ function propsRenAndDup(props, ren, dup) {
 }
 
 var Breadcrumbs_ = function Breadcrumbs_(props) {
-  var data = props.breadcrumbs;
+  var data = props[breadcrumbsThroughArea];
   var pathnames = Object.keys(data).sort(function (a, b) {
     return a.length - b.length;
   });
@@ -4419,7 +4425,7 @@ var Breadcrumbs_ = function Breadcrumbs_(props) {
   );
 };
 
-var Breadcrumbs = exports.Breadcrumbs = (0, _reactThrough.throughContainer)('breadcrumbs')(Breadcrumbs_);
+var Breadcrumbs = exports.Breadcrumbs = withBreadcrumbsContainer(Breadcrumbs_);
 
 /***/ }),
 /* 55 */

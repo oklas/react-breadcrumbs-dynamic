@@ -1,6 +1,6 @@
 {
   "name": "react-breadcrumbs-dynamic",
-  "version": "1.0.10",
+  "version": "1.0.13",
   "description": "React dynamic breadcrumbs extremely flexible and easy to use",
   "main": "dist/src/index.js",
   "repository": {
@@ -23,6 +23,8 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -31,6 +33,7 @@
     "chai": "^4.1.2",
     "codecov": "^3.0.0",
     "enzyme": "^3.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
     "jest": "^21.2.1",
     "react": "^15.6.2",
     "react-addons-test-utils": "^15.6.2",
@@ -38,15 +41,12 @@
     "react-dom": "^15.6.2",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
+    "react-test-renderer": "^16.2.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-jest": "^21.2.0",
-    "enzyme-adapter-react-15": "^1.0.5",
-    "react-test-renderer": "^16.2.0",
-    "react-through": "^1.0.2"
+    "react-through": "^1.0.3"
   },
   "jest": {
     "moduleDirectories": [
@@ -72,7 +72,8 @@
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.jsx$": "babel-jest"
-    }
+    },
+    "testURL": "http://localhost"
   },
   "scripts": {
     "build": "babel -d dist/ src/index.js",
