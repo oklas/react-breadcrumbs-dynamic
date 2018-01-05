@@ -41,7 +41,6 @@ Add a `<ThroughProvider/>` component to the root of your React component
 tree like you do it for `react-redux` or `react-router` if you does not use
 that yet. Read more about `ThroughProvider` in
 [react-through](https://github.com/oklas/react-through) manual.
-The `through area` name used by this library is `breadcrumbs`
 
 ``` javascript
 import {ThroughProvider} from 'react-through'
@@ -201,6 +200,19 @@ item for these functions may be any react component and only props is
 significant. The `Dummy` and the `Item` components is exported by library
 for this case. Each function accepts null to reset breadcrumbs items to none if
 current component is no more needed to represent any breadcrumbs items.
+
+
+### constants
+
+The `through area` name  used by this library is defined in
+`breadcrumbsThroughArea` variable.
+
+The prop name which contain bearing key is defined in
+`breadcrumbsBearingKey`.
+
+import { breadcrumbsThroughArea } from 'react-breadcrumbs-dynamic'
+import { breadcrumbsBearingKey } from 'react-breadcrumbs-dynamic'
+
 
 
 ## LICENSE
