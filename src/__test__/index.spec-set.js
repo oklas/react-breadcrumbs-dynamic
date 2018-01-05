@@ -180,20 +180,6 @@ describe(`breadcrumbs ${usage} usage`, function() {
     wrapper.unmount()
   })
 
-  it("throw in install for wrong types", function() {
-    useFakeTimers()
-    const wrapper = mount(<TestApp/>)
-    expect(wrapper.find('.testWrongInstallToKey')).to.have.length(1)
-    expect(wrapper.find('.testWrongInstallPropsType')).to.have.length(1)
-    expect(() => {
-      wrapper.find('.testWrongInstallToKey').simulate('click')
-    }).to.throw()
-    expect(() => {
-      wrapper.find('.testWrongInstallPropsType').simulate('click')
-    }).to.throw()
-    wrapper.unmount()
-  })
-
   it("have dummy components", function() {
     expect(Dummy()).to.be.null
     expect(Item()).to.be.null

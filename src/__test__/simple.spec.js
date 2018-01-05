@@ -48,14 +48,6 @@ class TestSimpleApp extends React.Component {
     this.setState({haveProfile: false})
   }
 
-  testWrongInstallToKey = () => {
-    this.props[throughArea].install([], {})
-  }
-
-  testWrongInstallPropsType = () => {
-    this.props[throughArea].install(new String('/'), [])
-  }
-
   replaceAnotherSame = () => {
     this.setState({replaceAnotherSame: true})
   }
@@ -95,8 +87,6 @@ class TestSimpleApp extends React.Component {
           <button className="changeProfileUrl" onClick={this["changeProfileUrl"]} />
           <button className="restoreProfileUrl" onClick={this["restoreProfileUrl"]} />
           <button className="removeProfile" onClick={this["removeProfile"]} />
-          <button className="testWrongInstallToKey" onClick={this["testWrongInstallToKey"]} />
-          <button className="testWrongInstallPropsType" onClick={this["testWrongInstallPropsType"]} />
           <button className="replaceAnotherSame" onClick={this["replaceAnotherSame"]} />
         </div>
       </BreadcrumbsProvider>

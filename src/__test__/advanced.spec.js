@@ -65,21 +65,8 @@ class WithBreadcrubmsItems extends React.Component {
     }
   }
 
-  testWrongInstallToKey = () => {
-    this.props[throughArea].install([], {})
-  }
-
-  testWrongInstallPropsType = () => {
-    this.props[throughArea].install(new String('/'), [])
-  }
-
   render() {
-    return (
-      <div>
-        <button className="testWrongInstallToKey" onClick={this["testWrongInstallToKey"]} />
-        <button className="testWrongInstallPropsType" onClick={this["testWrongInstallPropsType"]} />
-      </div>
-    )
+    return null
   }
 }
 

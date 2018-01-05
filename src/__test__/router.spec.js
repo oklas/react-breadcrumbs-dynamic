@@ -17,9 +17,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 enzyme.configure({ adapter: new Adapter() });
 jest.dontMock('../index')
 
-const runAllTimers = () => jest.runAllTimers()
-const useFakeTimers = () => jest.useFakeTimers()
-
 
 const createComponent = (children) => {
   const SameComponent = () => (
@@ -74,9 +71,7 @@ class TestApp extends React.Component {
 
 describe('breadcrumbs with react-router', function() {
   it("replace another element with same props", function() {
-    useFakeTimers()
     const wrapper = mount(<TestApp/>)
-    runAllTimers()
 
     wrapper.find('.navigateToIndex').simulate('click')
     expect(wrapper.find('a').at(0).props().to).to.equal('/same')
