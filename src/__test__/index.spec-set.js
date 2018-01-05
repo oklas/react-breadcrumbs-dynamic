@@ -98,7 +98,22 @@ describe(`breadcrumbs ${usage} usage`, function() {
     runAllTimers()
     expect(wrapper.find('a')).to.have.length(3)
     expect(wrapper.find('b')).to.have.length(1)
-    expect(wrapper.find('b').props().children).to.equal('Home')
+    expect(wrapper.find('b').props().children).to.equal('Home Bold')
+    wrapper.unmount()
+  });
+
+  it("replace another element with same props", function() {
+    useFakeTimers()
+    const wrapper = mount(<TestApp/>)
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(0).props().to).to.equal('/')
+    expect(wrapper.find('a').at(0).props().children).to.equal('Home')
+    wrapper.find('.replaceAnotherSame').simulate('click')
+    runAllTimers()
+    expect(wrapper.find('a')).to.have.length(3)
+    expect(wrapper.find('a').at(0).props().to).to.equal('/')
+    expect(wrapper.find('a').at(0).props().children).to.equal('Home Another')
     wrapper.unmount()
   });
 

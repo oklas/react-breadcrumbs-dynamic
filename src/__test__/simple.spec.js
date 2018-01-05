@@ -33,6 +33,7 @@ class TestSimpleApp extends React.Component {
   state = {
     profileUrl: "/user/profile",
     haveProfile: true,
+    replaceAnotherSame: false,
   }
 
   changeProfileUrl = () => {
@@ -55,10 +56,14 @@ class TestSimpleApp extends React.Component {
     this.props[throughArea].install(new String('/'), [])
   }
 
+  replaceAnotherSame = () => {
+    this.setState({replaceAnotherSame: true})
+  }
+
   render() {
     const onlyOneItem = this.props.noAnyItem || this.props.onlyOneItem
     const noFirstItem = this.props.noAnyItem
-    const Home = this.props.reactComponentInProps ? <b>Home</b> : 'Home'
+    const Home = this.props.reactComponentInProps ? <b>Home Bold</b> : 'Home'
     return (
       <BreadcrumbsProvider
         shouldBreadcrumbsUpdate={this.props.shouldBreadcrumbsUpdate}
@@ -71,7 +76,10 @@ class TestSimpleApp extends React.Component {
             renameProps={this.props.renameProps}
             duplicateProps={this.props.duplicateProps} />
           { !noFirstItem ?
-            <BreadcrumbsItem to='/'>{Home}</BreadcrumbsItem>
+            ( this.state.replaceAnotherSame
+               ? <div> <BreadcrumbsItem to='/'>Home Another</BreadcrumbsItem> </div>
+               : <div> <BreadcrumbsItem to='/'>{Home}</BreadcrumbsItem> </div>
+            )
             : null
           }
           { !onlyOneItem ?
@@ -89,6 +97,7 @@ class TestSimpleApp extends React.Component {
           <button className="removeProfile" onClick={this["removeProfile"]} />
           <button className="testWrongInstallToKey" onClick={this["testWrongInstallToKey"]} />
           <button className="testWrongInstallPropsType" onClick={this["testWrongInstallPropsType"]} />
+          <button className="replaceAnotherSame" onClick={this["replaceAnotherSame"]} />
         </div>
       </BreadcrumbsProvider>
     )

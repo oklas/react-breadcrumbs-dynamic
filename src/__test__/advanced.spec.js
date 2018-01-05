@@ -50,7 +50,8 @@ class WithBreadcrubmsItems extends React.Component {
         <Item to='/'>Home</Item>
       )
     } else {
-      const Home = this.props.reactComponentInProps ? <b>Home</b> : 'Home'
+      const HomeText = props.replaceAnotherSame ? 'Home Another' : 'Home'
+      const Home = props.reactComponentInProps ? <b>Home Bold</b> : HomeText
       props[throughArea].items(
         <div>
           <Item to='/'>{Home}</Item>
@@ -98,6 +99,7 @@ class TestAdvancedAppComponent extends React.Component {
   state = {
     profileUrl: "/user/profile",
     haveProfile: true,
+    replaceAnotherSame: false,
   }
 
   changeProfileUrl = () => {
@@ -112,6 +114,10 @@ class TestAdvancedAppComponent extends React.Component {
     this.setState({haveProfile: false})
   }
 
+  replaceAnotherSame = () => {
+    this.setState({replaceAnotherSame: true})
+  }
+
   render() {
     return (
       <div>
@@ -121,10 +127,14 @@ class TestAdvancedAppComponent extends React.Component {
           containerProps={this.props.containerProps}
           renameProps={this.props.renameProps}
           duplicateProps={this.props.duplicateProps} />
-        <WithBreadcrubmsItems {...this.props} {...this.state}/>
+        { this.state.replaceAnotherSame
+          ? <div> <WithBreadcrubmsItems {...this.props} {...this.state}/> </div>
+          : <div> <WithBreadcrubmsItems {...this.props} {...this.state}/> </div>
+        }
         <button className="changeProfileUrl" onClick={this["changeProfileUrl"]} />
         <button className="restoreProfileUrl" onClick={this["restoreProfileUrl"]} />
         <button className="removeProfile" onClick={this["removeProfile"]} />
+        <button className="replaceAnotherSame" onClick={this["replaceAnotherSame"]} />
       </div>
     )
   }
