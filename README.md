@@ -163,14 +163,16 @@ ___
 
 ## `Breadcrumbs` component props
 
-* `separator` - separator between breadcrumbs items (default: undefined)
-* `item` - component of breadcrumbs items (default: 'a')
-* `finalItem` - component of final breadcrumbs item (default: value of `item` prop)
-* `finalProps` - final item props which override specified in `BreadcrumbsItem` (default: {})
-* `container` - wrapper component (default is `span`)
-* `containerProps` - props for `container` components if defined (default: {})
-* `renameProps` - rename props passed from item intermedator to item
-* `duplicateProps` - duplicate same as `renameProps` but without remove original.
+| property | type | default | description |
+| -------- | ---- | ------- | ------- |
+| `separator` | *element* | `undefined` | separator between breadcrumbs items |
+| `item` | *component* | `a` | component of breadcrumbs items |
+| `finalItem` | *component* | value of `item` prop | component of final breadcrumbs item |
+| `finalProps` | *object* | `{}` | final item props - will override specified in `BreadcrumbsItem` |
+| `container` | *component* | `span` | wrapper component |
+| `containerProps` | *object* | `{}` | props for `container` component |
+| `renameProps` | *object* | `{}` | rename props passed from item `BreadcrumbsItem` to `item` |
+| `duplicateProps` | *object* | `{}` | duplicate props passed from item `BreadcrumbsItem` to `item` |
 
 
 ## `BreadcrumbsItem` component props
@@ -179,21 +181,24 @@ The `BreadcrumbsItem` component may have any prop and may have children. Each pr
 for `BreadcrumbsItem` will be passed to correspondent breadcrumb component specified
 in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
 
-* `to` - mandatory required bearing key with URL for breadcrumbs working
-* `...` - any more number of properties.
+| property | type | default | description |
+| -------- | ---- | ------- | ------- |
+| `to` | *string* | required | mandatory required bearing key with URL |
+| `...` | *any* | | any properties - will be mapped to correspondent breadcrumb item |
 
+___
 
-## `withBreadcrumbsItem()` function
+### `withBreadcrumbsItem()` function
 
-This function creates higher order component. It acquire one argument with your
-custom react component and return appropriate component which will have
-`breadcrumbs` in its props with methods `item()` and `items()`
-like `throughAgent` from [react-through](https://github.com/oklas/react-through).
+Advanced usage higher order component function. It acquire one argument with
+your custom react component and return appropriate component which will have
+`breadcrumbs` in its props with methods `item()` and `items()` like
+`throughAgent` from [react-through](https://github.com/oklas/react-through).
 
 
 ### `this.props.breadcrumbs.item()` and `this.props.breadcrumbs.items()`
 
-Methods to configure breadcrumbs item of your current react component.
+Advanced usage methods to configure breadcrumbs item of your react component.
 These methods will be added to props by HOC of `withBreadcrumbsItem` function.
 The function `item()` accepts one react component with props and the functions
 `items()` accepts react component with children which may contain any number of
@@ -213,8 +218,10 @@ The prop name which contain bearing key is defined in
 `breadcrumbsBearingKey`.
 
 
+``` javascript
 import { breadcrumbsThroughArea } from 'react-breadcrumbs-dynamic'
 import { breadcrumbsBearingKey } from 'react-breadcrumbs-dynamic'
+```
 
 
 ## LICENSE
