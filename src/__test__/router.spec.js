@@ -13,7 +13,6 @@ import {
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 
-
 enzyme.configure({ adapter: new Adapter() });
 jest.dontMock('../index')
 
@@ -29,7 +28,6 @@ const createComponent = (children) => {
 
 
 class TestApp extends React.Component {
-
   render() {
     return (
       <Router>
@@ -74,11 +72,11 @@ describe('breadcrumbs with react-router', function() {
     const wrapper = mount(<TestApp/>)
 
     wrapper.find('.navigateToIndex').simulate('click')
-    expect(wrapper.find('a').at(0).props().to).to.equal('/same')
+    expect(wrapper.find('a').at(0).props().href).to.equal('/same')
     expect(wrapper.find('i').at(0).props().children).to.equal('index')
 
     wrapper.find('.navigateToSame').simulate('click')
-    expect(wrapper.find('a').at(0).props().to).to.equal('/same')
+    expect(wrapper.find('a').at(0).props().href).to.equal('/same')
     expect(wrapper.find('i').at(0).props().children).to.equal('same')
 
     wrapper.unmount()
