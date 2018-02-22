@@ -54,7 +54,9 @@ const Breadcrumbs_ = (props) => {
   const finalProps = props.finalProps || {}
   const separator = props.separator
   const count = pathnames.length
-  const ren = props.renameProps || {}
+  const ren = props.renameProps || (
+    Item == 'a' ? {to: 'href'} : {}
+  )
   const dup = props.duplicateProps || {}
 
   return (
