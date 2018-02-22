@@ -28,7 +28,7 @@ Visit live **[DEMO](//oklas.github.io/react-breadcrumbs-dynamic)** (source code 
 # Installation
 
 ``` sh
-npm install --save react-breadcrumbs-dynamic
+npm install --save react-through react-breadcrumbs-dynamic
 
 # definitions may be installed if typescript is used
 # ( worked for 1.0.10, leave feedback if any )
@@ -90,6 +90,11 @@ const Page = (props) => (
 }
 ```
 
+Notice that default breadcrumbs item is an `<a>` tag. And the `<a>` tag does
+not have property `to` - it have property `href` for link. So you may need to
+specify `renameProps` or `duplicateProps` like this:
+`<Breadcrumbs renameProps={{to:"href"}} />`.
+
 
 # Add item to breadcrumbs
 
@@ -100,16 +105,13 @@ component which is the `through agent` with bearing key in prop `to` in
 terms of [react-through](https://github.com/oklas/react-through). 
 
 The `BreadcrumbsItem` component mandatory requires the `to` prop which
-contains bearing key with URL for breadcrumbs working. So if you use simple
-`<a>` tag for breadcrumb url - you need to use the `duplicateProps` and/or
-`renameProps`, or need to specify both `to` and `href`.
-Read also *Advanced Usage and Performance* section in
-[react-through](https://github.com/oklas/react-through) manual.
+contains bearing key with URL for breadcrumbs working. Therefore, if you use
+simple `<a>` tag for breadcrumb url - you need to use the `duplicateProps`
+and/or `renameProps`, or need to specify both `to` and `href`.
 
 Simple configure of the breadcrumbs items:
 
 ``` javascript
-
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic'
 
 const App = (props) => (
@@ -210,9 +212,9 @@ The `through area` name  used by this library is defined in
 The prop name which contain bearing key is defined in
 `breadcrumbsBearingKey`.
 
+
 import { breadcrumbsThroughArea } from 'react-breadcrumbs-dynamic'
 import { breadcrumbsBearingKey } from 'react-breadcrumbs-dynamic'
-
 
 
 ## LICENSE
