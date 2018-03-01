@@ -24,6 +24,25 @@ components and design.
 
 Visit live **[DEMO](//oklas.github.io/react-breadcrumbs-dynamic)** (source code of demo in [example](example) folder)
 
+# Synopsis
+
+```js
+const Profile = ({user}) => (
+  <div>
+    <BreadcrumbsItem
+      to=`/user/${user.login}`
+      icon='account-box'
+      ...
+    >
+      {user.firstName} {user.lastName}
+    </BreadcrumbsItem>
+    
+    <h1>
+      {user.firstName} {user.lastName}
+    </h1>
+  </div>
+)
+```
 
 # Installation
 
