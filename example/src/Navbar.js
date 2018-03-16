@@ -24,6 +24,18 @@ const MenuItem = ({to, ...props}) => (
   </LinkContainer>
 )
 
+const GithubItem = ({to, action, key, icon}) => (
+  <MenuItem eventKey={key}>
+    <a className="github-button" data-icon={icon} data-show-count="true"
+      href={to}
+      aria-label={action+" oklas/react-breadcrumbs-dynamic on GitHub"}
+    >
+      {action}
+    </a>
+  </MenuItem>
+)
+
+
 
 const TheNavbar = ({children}) => (
   <Navbar inverse collapseOnSelect>
@@ -65,20 +77,12 @@ const TheNavbar = ({children}) => (
       </Nav>
       <Nav pullRight>
 
-        <MenuItem eventKey={1}>
-          <a className="github-button" data-icon="octicon-star" data-show-count="true"
-            href="https://github.com/oklas/react-breadcrumbs-dynamic"
-            aria-label="Star oklas/react-breadcrumbs-dynamic on GitHub">
-            Star
-          </a>
-        </MenuItem>
-        <MenuItem eventKey={2}>
-          <a className="github-button" data-icon="octicon-repo-forked" data-show-count="true"
-            href="https://github.com/oklas/react-breadcrumbs-dynamic/fork"
-            aria-label="Fork oklas/react-breadcrumbs-dynamic on GitHub">
-            Fork
-          </a>
-        </MenuItem>
+        <GithubItem key={1} action='Star' icon='octicon-star'
+          to='https://github.com/oklas/react-breadcrumbs-dynamic'
+        />
+        <GithubItem key={2} action='Fork' icon='octicon-repo-forked'
+          to='https://github.com/oklas/react-breadcrumbs-dynamic/fork'
+        />
 
       </Nav>
     </Navbar.Collapse>
