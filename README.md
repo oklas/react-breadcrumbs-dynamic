@@ -12,27 +12,27 @@
 [`🏠`](https://oklas.github.io/react-breadcrumbs-dynamic) > [`React dynamic breadcrumbs`](https://oklas.github.io/react-breadcrumbs-dynamic) > [`extremely flexible`](https://oklas.github.io/react-breadcrumbs-dynamic) > [`and`](https://oklas.github.io/react-breadcrumbs-dynamic) > [`easy to use`](https://oklas.github.io/react-breadcrumbs-dynamic)
 
 
-This is completely router-independent react breadcrumbs solution which means
-that you can use it with any version of React Router (2 or 3 or 4) or any other
-routing library for React or without routing at all. All what you need is just
-to specify components for breadcrumbs items and its props. However props and
-components should be specified separately. Props should be specified in
-intermediator component `BreadcrumbsItem` anywhere in your hierarchy of
+This is completely router-independent solution. You can use it with any version
+of React Router (2 or 3 or 4) or any other routing library for React or without
+routing at all. All what you need is just to specify components for breadcrumbs
+items and its props. However props and components should be specified
+[separately](https://github.com/oklas/react-through). Props should be specified
+in intermediator component `BreadcrumbsItem` anywhere in your hierarchy of
 components and routes. Breadcrumbs will be built and (currently) sorted by the
-length of the URL. An application may contain several breadcrumbs with different
-components and design.
+length of the URL.
 
-Visit live **[DEMO](//oklas.github.io/react-breadcrumbs-dynamic)** (source code of demo in [example](example) folder)
+Visit live **[DEMO](//oklas.github.io/react-breadcrumbs-dynamic)** (source code
+of demo in [example](example/src) folder)
 
 # Synopsis
 
 ```js
 const Profile = ({user}) => (
   <div>
+    
     <BreadcrumbsItem
       to=`/user/${user.login}`
       icon='account-box'
-      ...
     >
       {user.firstName} {user.lastName}
     </BreadcrumbsItem>
@@ -56,10 +56,8 @@ npm install --save @types/react-breadcrumbs-dynamic
 
 # Base configuration
 
-Add a `<ThroughProvider/>` component to the root of your React component
-tree like you do it for `react-redux` or `react-router` if you does not use
-that yet. Read more about `ThroughProvider` in
-[react-through](https://github.com/oklas/react-through) manual.
+Do you use [react-through](https://github.com/oklas/react-through)?
+Just add `<ThroughProvider/>` to the root of your React component tree:
 
 ``` javascript
 import {ThroughProvider} from 'react-through'
@@ -79,10 +77,7 @@ ReactDOM.render(theApp, document.getElementById('root'))
 The breadcrumbs instance is implemented in the `Breadcrumbs` component, which is
 the `through container` in terms of
 [react-through](https://github.com/oklas/react-through). 
-The `Breadcrumbs` component needs to be configured, however all params have
-default value. In this example the `react-router` v4 routing specification is
-used. Please note that `item` and `finalItem` require react component (class)
-instead of react element. However `separator` requires react element.
+In this example the `react-router` v4 `<NavLink>` is used as breadcrumbs item.
 
 ``` javascript
 import {Breadcrumbs} from 'react-breadcrumbs-dynamic'
@@ -91,6 +86,7 @@ const Page = (props) => (
   return (
     <div className="App">
       <Header>
+        
         <Breadcrumbs
           separator={<b> / </b>}
           item={NavLink}
@@ -99,8 +95,11 @@ const Page = (props) => (
             style: {color: 'red'}
           }}
         />
+      
       </Header>
+      
       {props.children}
+      
       <Footer>
         <Breadcrumbs/>
       </Footer>
@@ -109,9 +108,11 @@ const Page = (props) => (
 }
 ```
 
-Notice that default breadcrumbs item is an `<a>` tag. And the `<a>` tag does
-not have property `to` - it have property `href` for link. So you may need to
-specify `renameProps` or `duplicateProps` like this:
+Please note that `item` and `finalItem` require react component (class) instead
+of react element. However `separator` requires react element.
+
+If you use `<a>` tag based items then you will find `renameProps` or
+`duplicateProps` usefull to map prop `to` on prop `href` like this:
 `<Breadcrumbs renameProps={{to:"href"}} />`.
 
 
@@ -119,16 +120,11 @@ specify `renameProps` or `duplicateProps` like this:
 
 Each routed component in your react tree is generally associated with route
 and with correspondent breadcrumbs. Each component may add its breadcrumbs
-item by instantiate `BreadcrumbsItem` component. The `BreadcrumbsItem`
-component which is the `through agent` with bearing key in prop `to` in
-terms of [react-through](https://github.com/oklas/react-through). 
+item by `<BreadcrumbsItem>`. The `BreadcrumbsItem` component is the
+`through agent` with bearing key in prop `to` in terms of
+[react-through](https://github.com/oklas/react-through). 
 
-The `BreadcrumbsItem` component mandatory requires the `to` prop which
-contains bearing key with URL for breadcrumbs working. Therefore, if you use
-simple `<a>` tag for breadcrumb url - you need to use the `duplicateProps`
-and/or `renameProps`, or need to specify both `to` and `href`.
-
-Simple configure of the breadcrumbs items:
+Example tree of routed components with breadcrumbs items:
 
 ``` javascript
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic'
@@ -158,6 +154,10 @@ const Contacts = (props) => (
   </div>
 )
 ```
+
+You can declaratively pass props with any data, functions, components and so on
+through react tree in any direction because
+[react-through](https://github.com/oklas/react-through) allow to do that.
 
 
 # Result
