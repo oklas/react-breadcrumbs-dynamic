@@ -29,14 +29,14 @@ of demo in [example](example/src) folder)
 ```js
 const Profile = ({user}) => (
   <div>
-    
+
     <BreadcrumbsItem
       to=`/user/${user.login}`
       icon='account-box'
     >
       {user.firstName} {user.lastName}
     </BreadcrumbsItem>
-    
+
     <h1>
       {user.firstName} {user.lastName}
     </h1>
@@ -56,7 +56,8 @@ npm install --save @types/react-breadcrumbs-dynamic
 
 # Base configuration
 
-Do you use [react-through](https://github.com/oklas/react-through)?
+Do you already use declarative communications through react tree with
+[react-through](https://github.com/oklas/react-through)?
 Just add `<ThroughProvider/>` to the root of your React component tree:
 
 ``` javascript
@@ -74,10 +75,7 @@ ReactDOM.render(theApp, document.getElementById('root'))
 
 # Instance configuration
 
-The breadcrumbs instance is implemented in the `Breadcrumbs` component, which is
-the `through container` in terms of
-[react-through](https://github.com/oklas/react-through). 
-In this example the `react-router` v4 `<NavLink>` is used as breadcrumbs item.
+In this example the `react-router` v4 `<NavLink>` is used as breadcrumbs item:
 
 ``` javascript
 import {Breadcrumbs} from 'react-breadcrumbs-dynamic'
@@ -86,7 +84,7 @@ const Page = (props) => (
   return (
     <div className="App">
       <Header>
-        
+
         <Breadcrumbs
           separator={<b> / </b>}
           item={NavLink}
@@ -95,11 +93,11 @@ const Page = (props) => (
             style: {color: 'red'}
           }}
         />
-      
+
       </Header>
-      
+
       {props.children}
-      
+
       <Footer>
         <Breadcrumbs/>
       </Footer>
@@ -116,13 +114,11 @@ If you use `<a>` tag based items then you will find `renameProps` or
 `<Breadcrumbs renameProps={{to:"href"}} />`.
 
 
-# Add item to breadcrumbs
+# Add items to breadcrumbs
 
 Each routed component in your react tree is generally associated with route
 and with correspondent breadcrumbs. Each component may add its breadcrumbs
-item by `<BreadcrumbsItem>`. The `BreadcrumbsItem` component is the
-`through agent` with bearing key in prop `to` in terms of
-[react-through](https://github.com/oklas/react-through). 
+item by `<BreadcrumbsItem>` with any props and children.
 
 Example tree of routed components with breadcrumbs items:
 
@@ -157,7 +153,7 @@ const Contacts = (props) => (
 
 You can declaratively pass props with any data, functions, components and so on
 through react tree in any direction because
-[react-through](https://github.com/oklas/react-through) allow to do that.
+[react-through](https://github.com/oklas/react-through) allows to do that.
 
 
 # Result
@@ -182,6 +178,10 @@ ___
 
 ## `Breadcrumbs` component props
 
+The breadcrumbs instance is implemented in the `Breadcrumbs` component, which
+is the `through container` in terms of
+[react-through](https://github.com/oklas/react-through).
+
 | property | type | default | description |
 | -------- | ---- | ------- | ------- |
 | `separator` | *element* | `undefined` | separator between breadcrumbs items |
@@ -196,6 +196,9 @@ ___
 
 ## `BreadcrumbsItem` component props
 
+The `BreadcrumbsItem` component is the `through agent` with bearing key in
+prop `to` in terms of [react-through](https://github.com/oklas/react-through).
+
 The `BreadcrumbsItem` component may have any prop and may have children. Each prop
 for `BreadcrumbsItem` will be passed to correspondent breadcrumb component specified
 in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
@@ -204,6 +207,7 @@ in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
 | -------- | ---- | ------- | ------- |
 | `to` | *string* | required | mandatory required bearing key with URL |
 | `...` | *any* | | any properties - will be mapped to correspondent breadcrumb item |
+
 
 ___
 
