@@ -212,23 +212,7 @@ in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
 
 ## Custom sorting
 
-Default sorting depends on length of `pathname` defined in `BreadcrumbsItem` component. But the default behavior can be overridden with `compare` props. The parameters of sorting function is Entry with the following structure:
-``` json
-{
-  pathname,
-  { ...otherProps } 
-}
-```
-E.g. custom sorting by field `weight`
-``` javascript
-    <BreadcrumbsItem to="/some/path" weight={200} />
-    ...
-    <Breadcrumbs
-      ...
-      compare={(a, b) => a[1].weight - b[1].weight}
-      removeProps={{ weight: true }}
-```
-The field `weight` is passed to the end React component as prop of `BreadcrumbItem` so usually it is better to add the field to `removeProps`
+Default sorting depends on length of `pathname` defined in the `BreadcrumbsItem` component. But the default behavior can be overridden by the `compare` props. The parameters are props of `BreadcrumbsItem`, so it is usually better to add the sort field to `removeProps`
 
 ___
 

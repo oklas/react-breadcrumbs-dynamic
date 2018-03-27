@@ -44,8 +44,7 @@ class TestApp extends React.Component {
 
 describe('breadcrumbs with custom compare function', function() {
   it("custom order", function() {
-    const wrapper = mount(<TestApp compare={(a, b)=> a[1].weight - b[1].weight} />)
-
+    const wrapper = mount(<TestApp compare={(a, b)=> a.weight - b.weight} />)
     expect(wrapper.find('a').at(1).props().href).to.equal('/')
     expect(wrapper.find('a').at(3).props().href).to.equal('/first')
     expect(wrapper.find('a').at(2).props().href).to.equal('/first/second')

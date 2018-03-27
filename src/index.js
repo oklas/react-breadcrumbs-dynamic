@@ -45,16 +45,18 @@ function prepareProps(props, rename, duplicate, remove) {
 
 
 const Breadcrumbs_ = (props) => {
-  const defaultCompare = (a, b) => a[0].length - b[0].length;
+  const defaultCompare = (a, b) => (
+    a[breadcrumbsBearingKey].length - b[breadcrumbsBearingKey].length
+  )
   const data = props[breadcrumbsThroughArea]
-  const itemEntries = Object.entries(data).sort(props.compare || defaultCompare)
+  const itemsValue = Object.values(data).sort(props.compare || defaultCompare)
   const Container = props.container || 'span'
   const containerProps = props.containerProps
   const Item = props.item || 'a'
   const FinalItem = props.finalItem || Item
   const finalProps = props.finalProps || {}
   const separator = props.separator
-  const count = itemEntries.length
+  const count = itemsValue.length
   const rename = props.renameProps || (
     Item == 'a' ? {to: 'href'} : {}
   )
@@ -64,22 +66,22 @@ const Breadcrumbs_ = (props) => {
   return (
     <Container {...containerProps}>
 
-      {itemEntries.map((itemEntry, i) => {
+      {itemsValue.map((itemValue, i) => {
         return i+1 < count ? (
 
           separator ? (
             <span key={i}>
-              <Item {...prepareProps(itemEntry[1], rename, duplicate, remove)} />
+              <Item {...prepareProps(itemValue, rename, duplicate, remove)} />
               {separator}
             </span>
           ) : (
-            <Item key={i} {...prepareProps(itemEntry[1], rename, duplicate, remove)} />
+            <Item key={i} {...prepareProps(itemValue, rename, duplicate, remove)} />
           )
 
         ) : (
 
           <FinalItem key={i}
-            {...prepareProps(itemEntry[1], rename, duplicate, remove)}
+            {...prepareProps(itemValue, rename, duplicate, remove)}
             {...finalProps}
           />
 
