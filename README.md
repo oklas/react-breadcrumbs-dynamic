@@ -110,7 +110,7 @@ Please note that `item` and `finalItem` require react component (class) instead
 of react element. However `separator` requires react element.
 
 If you use `<a>` tag based items then you will find `renameProps` or
-`duplicateProps` usefull to map prop `to` on prop `href` like this:
+`duplicateProps` useful to map prop `to` on prop `href` like this:
 `<Breadcrumbs renameProps={{to:"href"}} />`.
 
 
@@ -190,8 +190,10 @@ is the `through container` in terms of
 | `finalProps` | *object* | `{}` | final item props - will override specified in `BreadcrumbsItem` |
 | `container` | *component* | `span` | wrapper component |
 | `containerProps` | *object* | `{}` | props for `container` component |
+| `compare` | *function* | `{}` | custom function to sort `BreadcrumbsItem` |
 | `renameProps` | *object* | `{}` | rename props passed from item `BreadcrumbsItem` to `item` |
 | `duplicateProps` | *object* | `{}` | duplicate props passed from item `BreadcrumbsItem` to `item` |
+| `removeProps` | *object* | `{}` | props aren't passed from item `BreadcrumbsItem` to `item` |
 
 
 ## `BreadcrumbsItem` component props
@@ -208,6 +210,9 @@ in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
 | `to` | *string* | required | mandatory required bearing key with URL |
 | `...` | *any* | | any properties - will be mapped to correspondent breadcrumb item |
 
+## Custom sorting
+
+Default sorting depends on length of `pathname` defined in the `BreadcrumbsItem` component. But the default behavior can be overridden by the `compare` props. The parameters are props of `BreadcrumbsItem`, so it is usually better to add the sort field to `removeProps`
 
 ___
 

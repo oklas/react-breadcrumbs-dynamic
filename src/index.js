@@ -29,55 +29,62 @@ export const BreadcrumbsProvider = ThroughProvider
 export const BreadcrumbsItem = throughAgentFactory(breadcrumbsThroughArea, breadcrumbsBearingKey)
 
 
-function propsRenAndDup(props, ren, dup) {
+function prepareProps(props, rename, duplicate, remove) {
   const p = Object.assign({}, props)
-  Object.keys(dup).forEach(k => {
-    p[dup[k]] = p[k]
+  Object.keys(duplicate).forEach(k => {
+    p[duplicate[k]] = p[k]
   })
-  Object.keys(ren).forEach(k => {
-    p[ren[k]] = p[k]; delete p[k]
+  Object.keys(rename).forEach(k => {
+    p[rename[k]] = p[k]; delete p[k]
+  })
+  Object.keys(remove).forEach(k => {
+    delete p[k]
   })
   return p
 }
 
 
 const Breadcrumbs_ = (props) => {
+  const defaultCompare = (a, b) => (
+    a[breadcrumbsBearingKey].length - b[breadcrumbsBearingKey].length
+  )
   const data = props[breadcrumbsThroughArea]
-  const pathnames = Object.keys(data).sort(function(a, b) {
-    return a.length - b.length
-  })
-
+  const itemsValue = Object
+    .keys(data)
+    .map(k => data[k])
+    .sort(props.compare || defaultCompare)
   const Container = props.container || 'span'
   const containerProps = props.containerProps
   const Item = props.item || 'a'
   const FinalItem = props.finalItem || Item
   const finalProps = props.finalProps || {}
   const separator = props.separator
-  const count = pathnames.length
-  const ren = props.renameProps || (
+  const count = itemsValue.length
+  const rename = props.renameProps || (
     Item == 'a' ? {to: 'href'} : {}
   )
-  const dup = props.duplicateProps || {}
+  const duplicate = props.duplicateProps || {}
+  const remove = props.removeProps || {}
 
   return (
     <Container {...containerProps}>
 
-      {pathnames.map((pathname,i) => {
+      {itemsValue.map((itemValue, i) => {
         return i+1 < count ? (
 
           separator ? (
             <span key={i}>
-              <Item {...propsRenAndDup(data[pathname], ren, dup)} />
+              <Item {...prepareProps(itemValue, rename, duplicate, remove)} />
               {separator}
             </span>
           ) : (
-            <Item key={i} {...propsRenAndDup(data[pathname], ren, dup)} />
+            <Item key={i} {...prepareProps(itemValue, rename, duplicate, remove)} />
           )
 
         ) : (
 
           <FinalItem key={i}
-            {...propsRenAndDup(data[pathname], ren, dup)}
+            {...prepareProps(itemValue, rename, duplicate, remove)}
             {...finalProps}
           />
 
