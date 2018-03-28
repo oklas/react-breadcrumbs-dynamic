@@ -18,8 +18,7 @@ routing at all. All what you need is just to specify components for breadcrumbs
 items and its props. However props and components should be specified
 [separately](https://github.com/oklas/react-through#readme). Props should be specified
 in intermediator component `BreadcrumbsItem` anywhere in your hierarchy of
-components and routes. Breadcrumbs will be built and (currently) sorted by the
-length of the URL.
+components and routes.
 
 Visit live **[DEMO](//oklas.github.io/react-breadcrumbs-dynamic)** (source code
 of demo in [example](example/src) folder)
@@ -109,6 +108,11 @@ const Page = (props) => (
 Please note that `item` and `finalItem` require react component (class) instead
 of react element. However `separator` requires react element.
 
+By default order of items is based on URL length. You can override the sort order
+as you like just specify comparision function in `compare` prop which receive
+pair of objects containing props of breadcrumbs item. For example:
+`<Breadcrumbs compare={(a,b)=>a.weight-b.weight} removeProps={{weight: true}} />`.
+
 If you use `<a>` tag based items then you will find `renameProps` or
 `duplicateProps` useful to map prop `to` on prop `href` like this:
 `<Breadcrumbs renameProps={{to:"href"}} />`.
@@ -190,7 +194,7 @@ is the `through container` in terms of
 | `finalProps` | *object* | `{}` | final item props - will override specified in `BreadcrumbsItem` |
 | `container` | *component* | `span` | wrapper component |
 | `containerProps` | *object* | `{}` | props for `container` component |
-| `compare` | *function* | `{}` | custom function to sort `BreadcrumbsItem` |
+| `compare` | *function* | (a,b)=>a.to.length-b.to.length | comparision function for sorting items |
 | `renameProps` | *object* | `{}` | rename props passed from item `BreadcrumbsItem` to `item` |
 | `duplicateProps` | *object* | `{}` | duplicate props passed from item `BreadcrumbsItem` to `item` |
 | `removeProps` | *object* | `{}` | props aren't passed from item `BreadcrumbsItem` to `item` |
@@ -210,11 +214,8 @@ in `item` or `finalItem` prop of `Breadcrumbs`. Only one prop is mandatory.
 | `to` | *string* | required | mandatory required bearing key with URL |
 | `...` | *any* | | any properties - will be mapped to correspondent breadcrumb item |
 
-## Custom sorting
-
-Default sorting depends on length of `pathname` defined in the `BreadcrumbsItem` component. But the default behavior can be overridden by the `compare` props. The parameters are props of `BreadcrumbsItem`, so it is usually better to add the sort field to `removeProps`
-
 ___
+
 
 ### `withBreadcrumbsItem()` function
 
