@@ -49,7 +49,10 @@ const Breadcrumbs_ = (props) => {
     a[breadcrumbsBearingKey].length - b[breadcrumbsBearingKey].length
   )
   const data = props[breadcrumbsThroughArea]
-  const itemsValue = Object.values(data).sort(props.compare || defaultCompare)
+  const itemsValue = Object
+    .keys(data)
+    .map(k => data[k])
+    .sort(props.compare || defaultCompare)
   const Container = props.container || 'span'
   const containerProps = props.containerProps
   const Item = props.item || 'a'
