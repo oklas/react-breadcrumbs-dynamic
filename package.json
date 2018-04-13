@@ -46,7 +46,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
-    "react-through": "../react-through"
+    "react-through": "^1.0.3"
   },
   "jest": {
     "moduleDirectories": [
