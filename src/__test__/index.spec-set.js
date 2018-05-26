@@ -117,41 +117,6 @@ describe(`breadcrumbs ${usage} usage`, function() {
     wrapper.unmount()
   });
 
-  it("support custom update filter", function() {
-    useFakeTimers()
-    const wrapper = mount(<TestApp
-      reactComponentInProps
-      shouldBreadcrumbsUpdate={(prevProps, props) => {
-        return prevProps.to != props.to
-      }}
-    />)
-    runAllTimers()
-    expect(wrapper.find('a')).to.have.length(3)
-    expect(wrapper.find('a').at(2).props().href).to.equal('/user/profile')
-    wrapper.find('.changeProfileUrl').simulate('click')
-    runAllTimers()
-    expect(wrapper.find('a')).to.have.length(3)
-    expect(wrapper.find('a').at(2).props().href).to.equal('/user/settings')
-    wrapper.find('.restoreProfileUrl').simulate('click')
-    runAllTimers()
-    expect(wrapper.find('a')).to.have.length(3)
-    expect(wrapper.find('a').at(2).props().href).to.equal('/user/profile')
-    wrapper.unmount()
-  });
-
-  it("skip update when filtered by custom update filter", function() {
-    useFakeTimers()
-    const wrapper = mount(<TestApp
-      reactComponentInProps
-      shouldBreadcrumbsUpdate={(prevProps, props) => {
-        return false
-      }}
-    />)
-    runAllTimers()
-    expect(wrapper.find('a')).to.have.length(0)
-    wrapper.unmount()
-  });
-
   it("can rename props", function() {
     useFakeTimers()
     const wrapper = mount(<TestApp renameProps={{}} />)

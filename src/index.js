@@ -5,7 +5,7 @@ import {
   ThroughProvider,
   throughContainer,
   throughAgent,
-  throughAgentFactory,
+  createAdvAgent,
   throughInterface,
 } from 'react-through'
 
@@ -26,7 +26,7 @@ export const Item = () => null
 
 export const BreadcrumbsProvider = ThroughProvider
 
-export const BreadcrumbsItem = throughAgentFactory(breadcrumbsThroughArea, breadcrumbsBearingKey)
+export const BreadcrumbsItem = createAdvAgent(breadcrumbsThroughArea, breadcrumbsBearingKey)
 
 
 function prepareProps(props, rename, duplicate, remove) {

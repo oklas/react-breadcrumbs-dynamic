@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import enzyme, { shallow, mount, render } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16'
 import { expect } from 'chai'
 
 import {
@@ -61,6 +61,11 @@ const TestApp = () => (
   </BreadcrumbsProvider>
 )
 
+console.error(`
+Please notice that errors in the console can currently mean
+that error testing is running. This may not mean that there
+are actually errors take place.
+`)
 
 describe('breadcrumbs api interface', function() {
   it("throw in install for wrong types", function() {
