@@ -5,7 +5,7 @@
   "main": "dist/src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oklas/react-breadcrumbs-dynamic.git"
+    "url": "https://github.com/oklas/react-breadcrumbs-dynamic"
   },
   "keywords": [
     "breadcrumbs",
@@ -80,18 +80,9 @@
     "build": "babel -d dist/ src/index.js",
     "build:example": "cd example && webpack",
     "start:example": "cd example && webpack-dev-server --config webpack.config.js",
-    "gh-pages:_ismaster": "if [ 'master' != `git rev-parse --abbrev-ref HEAD` ]; then echo error: branch must be master; false ; fi",
-    "gh-pages:_isclean": "if [ -n \"$(git status --porcelain)\" ] ; then echo error: workspace must be clean ; false ; fi",
-    "gh-pages:_isfinished": "if [ -n \"$(git branch --list gh-pages-add)\" ] ; then echo error: branch gh-pages-add must not exists ; false ; fi",
-    "gh-pages:check": "npm run gh-pages:_ismaster && npm run gh-pages:_isclean && npm run gh-pages:_isfinished",
-    "gh-pages:_branch": "if [ -n \"$(git branch --list gh-pages)\" ]; then git checkout gh-pages; else git checkout --orphan gh-pages && git rm -rf . && git checkout master package.json && git status && git commit --allow-empty -m 'initial commit' ; fi",
-    "gh-pages:_commit": "cp package.json example && git checkout -b gh-pages-add && git add example && git commit -m `npm view . version`",
-    "gh-pages:_filter": "git filter-branch -f --prune-empty --subdirectory-filter example",
-    "gh-pages:_pick": "git merge --squash --allow-unrelated-histories -X theirs --no-commit gh-pages-add",
-    "gh-pages:_commitif": "if [ -n \"$(git status --porcelain)\" ] ; then git commit -m `npm view . version` ; else echo nothin to commit ; fi",
-    "gh-pages:_clean": "git checkout master && git branch -D gh-pages-add",
-    "gh-pages:build": "npm run gh-pages:_commit && npm run gh-pages:_filter && npm run gh-pages:_branch && npm run gh-pages:_pick && npm run gh-pages:_commitif && npm run gh-pages:_clean",
-    "gh-pages": "npm run gh-pages:check && npm run build:example && npm run gh-pages:build",
+    "build:version": "node -p -e \"require('./package.json').version\"",
+    "gh-pages": "sh -c \"gh-pages -d example -m $(yarn -s build:version)\"",
+    "deploy": "yarn build && yarn build:example && yarn gh-pages",
     "prepublish": "npm run build",
     "test": "jest --coverage",
     "test-debug": "jest --bail --verbose"
