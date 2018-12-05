@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-import { Grid } from 'react-bootstrap'
+import { Grid, Breadcrumb as BootstrapBreadcrumb } from 'react-bootstrap'
+import { Breadcrumbs, BreadcrumbsItem } from '../../src';
 
-import { BreadcrumbsWithIcon, BreadcrumbsSimple } from './AppBreadcrumbs';
-
-import { BreadcrumbsItem } from '../../src';
+import CrumbItem from './CrumbItem';
+import CrumbIconItem from './CrumbIconItem';
 
 import Navbar from './Navbar'
 import MainPage from './MainPage'
@@ -24,7 +24,12 @@ class App extends Component {
 
         <Navbar/>
 
-        <BreadcrumbsWithIcon/>
+        <Breadcrumbs
+          item={CrumbIconItem}
+          container={BootstrapBreadcrumb}
+          finalProps={{active: true}}
+          duplicateProps={{to: 'href'}}
+       />
 
         <Grid>
           <Route exact path='/' component={MainPage} />
@@ -33,7 +38,12 @@ class App extends Component {
           <Route path={`${base_path}/tools`} component={ToolsPage} />
         </Grid>
 
-        <BreadcrumbsSimple/>
+        <Breadcrumbs
+          item={CrumbItem}
+          container={BootstrapBreadcrumb}
+          finalProps={{active: true}}
+          duplicateProps={{to: 'href'}}
+        />
 
       </div>
     );
