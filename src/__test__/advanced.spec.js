@@ -44,25 +44,28 @@ class WithBreadcrubmsItems extends React.Component {
 
   configureBreadcrumbs = (props) => {
     if(props.noAnyItem) {
-      props[throughArea].item(null)
-    } else if(props.onlyOneItem) {
-      props[throughArea].item(
+      return props[throughArea].item(null)
+    }
+
+    if(props.onlyOneItem) {
+      return props[throughArea].item(
         <Item to='/'>Home</Item>
       )
-    } else {
-      const HomeText = props.replaceAnotherSame ? 'Home Another' : 'Home'
-      const Home = props.reactComponentInProps ? <b>Home Bold</b> : HomeText
-      props[throughArea].items(
-        <div>
-          <Item to='/'>{Home}</Item>
-          <Item to='/user'>User</Item>
-          { props.haveProfile
-            ? <Item to={props.profileUrl}>Profile</Item>
-            : null
-          }
-        </div>
-      )
     }
+
+    const HomeText = props.replaceAnotherSame ? 'Home Another' : 'Home'
+    const Home = props.reactComponentInProps ? <b>Home Bold</b> : HomeText
+
+    props[throughArea].items(
+        <div>
+            <Item to='/'>{Home}</Item>
+            <Item to='/user'>User</Item>
+            { props.haveProfile
+                ? <Item to={props.profileUrl}>Profile</Item>
+                : null
+            }
+        </div>
+    )
   }
 
   render() {
@@ -80,6 +83,7 @@ class TestAdvancedAppComponent extends React.Component {
     duplicateProps: PropTypes.object,
     onlyOneItem: PropTypes.bool,
     noAnyItem: PropTypes.bool,
+    hideIfEmpty: PropTypes.bool,
     reactComponentInProps: PropTypes.bool,
   }
 
@@ -106,18 +110,28 @@ class TestAdvancedAppComponent extends React.Component {
   }
 
   render() {
+    const {
+      separator,
+      container,
+      containerProps,
+      renameProps,
+      duplicateProps,
+      hideIfEmpty
+    } = this.props
+
     return (
       <div>
         <Breadcrumbs
-          separator={this.props.separator}
-          container={this.props.container}
-          containerProps={this.props.containerProps}
-          renameProps={this.props.renameProps}
-          duplicateProps={this.props.duplicateProps} />
-        { this.state.replaceAnotherSame
-          ? <div> <WithBreadcrubmsItems {...this.props} {...this.state}/> </div>
-          : <div> <WithBreadcrubmsItems {...this.props} {...this.state}/> </div>
-        }
+          separator={separator}
+          container={container}
+          containerProps={containerProps}
+          renameProps={renameProps}
+          duplicateProps={duplicateProps}
+          hideIfEmpty={hideIfEmpty}
+        />
+        <div key={this.state.replaceAnotherSame ? 'first' : 'second'}>
+            <WithBreadcrubmsItems {...this.props} {...this.state}/>
+        </div>
         <button className="changeProfileUrl" onClick={this["changeProfileUrl"]} />
         <button className="restoreProfileUrl" onClick={this["restoreProfileUrl"]} />
         <button className="removeProfile" onClick={this["removeProfile"]} />

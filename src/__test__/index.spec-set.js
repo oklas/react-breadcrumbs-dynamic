@@ -147,9 +147,15 @@ describe(`breadcrumbs ${usage} usage`, function() {
 
   it("hides items in case of hideIfEmpty equal true", function() {
     useFakeTimers()
-    const wrapper = mount(<TestApp hideIfEmpty />)
+    const wrapper = mount(
+        <TestApp
+            hideIfEmpty
+            noAnyItem
+            containerProps={{ className: 'crumbs-wrapper' }}
+        />
+    )
     runAllTimers()
-    expect(wrapper.find('span')).to.have.length(0)
+    expect(wrapper.find('.crumbs-wrapper')).to.have.length(0)
     wrapper.unmount()
   })
 
