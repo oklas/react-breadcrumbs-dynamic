@@ -135,7 +135,7 @@ const App = (props) => (
     <Route exact path="/user" component={User} />
   </div>
 )
-  
+
 const User = (props) => (
   <div>
     <BreadcrumbsItem to='/user'>Home</BreadcrumbsItem>
@@ -194,6 +194,7 @@ is the `through container` in terms of
 | `container` | *component* | `span` | wrapper component |
 | `containerProps` | *object* | `{}` | props for `container` component |
 | `compare` | *function* | (a,b)=>a.to.length-b.to.length | comparision function for sorting items |
+| `hideIfEmpty` | *boolean* | `false` | show or hide breadcrumbs container if items exist or not |
 | `renameProps` | *object* | `{}` | rename props passed from item `BreadcrumbsItem` to `item` |
 | `duplicateProps` | *object* | `{}` | duplicate props passed from item `BreadcrumbsItem` to `item` |
 | `removeProps` | *object* | `{}` | props aren't passed from item `BreadcrumbsItem` to `item` |
