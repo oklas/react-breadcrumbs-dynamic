@@ -66,7 +66,9 @@ class TestSimpleApp extends React.Component {
             container={this.props.container}
             containerProps={this.props.containerProps}
             renameProps={this.props.renameProps}
-            duplicateProps={this.props.duplicateProps} />
+            duplicateProps={this.props.duplicateProps}
+            hideIfEmpty={this.props.hideIfEmpty}
+          />
           { !noFirstItem ?
             ( this.state.replaceAnotherSame
                ? <div> <BreadcrumbsItem to='/'>Home Another</BreadcrumbsItem> </div>
