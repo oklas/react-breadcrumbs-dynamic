@@ -44,28 +44,28 @@ function prepareProps(props, rename, duplicate, remove) {
 }
 
 const defaultCompare = (a, b) => (
-    a[breadcrumbsBearingKey].length - b[breadcrumbsBearingKey].length
+  a[breadcrumbsBearingKey].length - b[breadcrumbsBearingKey].length
 )
 
 const Breadcrumbs_ = (props) => {
   const {
-      container: Container = 'span',
-      containerProps,
-      hideIfEmpty = false,
-      item: Item = 'a',
-      finalItem: FinalItem = Item,
-      finalProps = {},
-      separator,
-      duplicateProps: duplicate = {},
-      removeProps: remove  = {},
-      renameProps: rename = (Item === 'a' ? {to: 'href'} : {}),
-      compare
+    container: Container = 'span',
+    containerProps,
+    hideIfEmpty = false,
+    item: Item = 'a',
+    finalItem: FinalItem = Item,
+    finalProps = {},
+    separator,
+    duplicateProps: duplicate = {},
+    removeProps: remove  = {},
+    renameProps: rename = (Item === 'a' ? {to: 'href'} : {}),
+    compare
   } = props
   const data = props[breadcrumbsThroughArea]
   const itemsValue = Object
-      .keys(data)
-      .map(k => data[k])
-      .sort(compare || defaultCompare)
+    .keys(data)
+    .map(k => data[k])
+    .sort(compare || defaultCompare)
   const count = itemsValue.length
 
   if (hideIfEmpty && count === 0) {

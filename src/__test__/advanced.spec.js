@@ -57,14 +57,14 @@ class WithBreadcrubmsItems extends React.Component {
     const Home = props.reactComponentInProps ? <b>Home Bold</b> : HomeText
 
     props[throughArea].items(
-        <div>
-            <Item to='/'>{Home}</Item>
-            <Item to='/user'>User</Item>
-            { props.haveProfile
-                ? <Item to={props.profileUrl}>Profile</Item>
-                : null
-            }
-        </div>
+      <div>
+        <Item to='/'>{Home}</Item>
+        <Item to='/user'>User</Item>
+        { props.haveProfile
+          ? <Item to={props.profileUrl}>Profile</Item>
+          : null
+        }
+      </div>
     )
   }
 
@@ -130,7 +130,7 @@ class TestAdvancedAppComponent extends React.Component {
           hideIfEmpty={hideIfEmpty}
         />
         <div key={this.state.replaceAnotherSame ? 'first' : 'second'}>
-            <WithBreadcrubmsItems {...this.props} {...this.state}/>
+          <WithBreadcrubmsItems {...this.props} {...this.state}/>
         </div>
         <button className="changeProfileUrl" onClick={this["changeProfileUrl"]} />
         <button className="restoreProfileUrl" onClick={this["restoreProfileUrl"]} />

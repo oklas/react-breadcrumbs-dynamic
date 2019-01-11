@@ -145,21 +145,34 @@ describe(`breadcrumbs ${usage} usage`, function() {
     wrapper.unmount()
   })
 
-  it("hides items in case of hideIfEmpty equal true", function() {
+  it("container is not visible if hideIfEmpty", function() {
     useFakeTimers()
     const wrapper = mount(
-        <TestApp
-            hideIfEmpty
-            noAnyItem
-            containerProps={{ className: 'crumbs-wrapper' }}
-        />
+      <TestApp
+        hideIfEmpty
+        noAnyItem
+        containerProps={{ className: 'crumbs-wrapper' }}
+      />
     )
     runAllTimers()
     expect(wrapper.find('.crumbs-wrapper')).to.have.length(0)
     wrapper.unmount()
   })
 
-  it("have dummy components", function() {
+  it("container is visible if no hideIfEmpty", function() {
+    useFakeTimers()
+    const wrapper = mount(
+      <TestApp
+        noAnyItem
+        containerProps={{ className: 'crumbs-wrapper' }}
+      />
+    )
+    runAllTimers()
+    expect(wrapper.find('.crumbs-wrapper')).to.have.length(1)
+    wrapper.unmount()
+  })
+
+it("have dummy components", function() {
     expect(Dummy()).to.be.null
     expect(Item()).to.be.null
   })
