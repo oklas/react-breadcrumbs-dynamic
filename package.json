@@ -10,7 +10,11 @@
   "keywords": [
     "breadcrumbs",
     "theme",
-    "react"
+    "react",
+    "router",
+    "react-router",
+    "through",
+    "react-through"
   ],
   "author": "Serguei Okladnikov <oklaspec@gmail.com>",
   "license": "MIT",
