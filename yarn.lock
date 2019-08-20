@@ -4730,9 +4730,9 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.6.3"
     scheduler "^0.11.2"
 
-react-through@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-through/-/react-through-1.1.1.tgz#4a0465ad1f870e74d45df98fd3f78114deca4717"
+react-through@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-through/-/react-through-1.1.4.tgz#163485b56bb03ddd2e5f971ada50a57e76737b78"
 
 react-transition-group@^2.0.0, react-transition-group@^2.2.0:
   version "2.5.0"

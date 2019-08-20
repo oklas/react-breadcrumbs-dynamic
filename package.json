@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/oklas/react-breadcrumbs-dynamic#readme",
   "peerDependencies": {
-    "react": ">=15.0.0 || ^16.0.0"
+    "react": ">=16.3.0 || ^16.3.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -50,7 +50,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
-    "react-through": "^1.1.0"
+    "react-through": "^1.1.4"
   },
   "jest": {
     "moduleDirectories": [
